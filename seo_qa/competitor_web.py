@@ -16,6 +16,13 @@ def install_routes(app, env):
     def timeline():
         return env.get_template('competitor.html').render(data=snapshot())
 
+    @app.get('/qa/community-news', response_class=HTMLResponse)
+    def community_news():
+        if not local_available(app):
+            raise HTTPException(404)
+        from .community_news import fixture
+        return env.get_template('community_news.html').render(data=fixture())
+
     @app.get('/qa/evidence-search', response_class=HTMLResponse)
     def evidence_search(q: str = ''):
         if not local_available(app):
