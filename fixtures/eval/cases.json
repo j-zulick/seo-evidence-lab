@@ -1,0 +1,8 @@
+{"version":"timeline-eval/v1","cases":[
+{"id":"direct","type":"opening","input":{"heading":"How do I reset settings?","opening":"Open Settings and choose Reset."},"expected":"direct"},
+{"id":"vague","type":"opening","input":{"heading":"How do I reset settings?","opening":"There are many things to consider."},"expected":"vague"},
+{"id":"conflict","type":"guidance","input":{"claims":["allowed","disallowed"]},"expected":"review"},
+{"id":"duplicate","type":"versions","input":{"bodies":["same","same"]},"expected":1},
+{"id":"history","type":"history","input":{"keywords":[]},"expected":"insufficient coverage"},
+{"id":"causal","type":"claim","input":{"observation":"Both edited and comparison pages gained.","claim":"The edit caused the gain."},"expected":"unsupported"}
+]}

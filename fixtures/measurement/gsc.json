@@ -1,0 +1,1 @@
+{"synthetic":true,"request":{"property":"sc-domain:owned.example","dimensions":["page","query","country","device"],"startDate":"2026-10-01","endDate":"2026-10-28"},"response":{"rows":[{"keys":["https://owned.example/guide","reset guide","usa","MOBILE"],"clicks":14,"impressions":200,"position":5.1}]}}

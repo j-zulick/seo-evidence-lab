@@ -1,0 +1,32 @@
+[
+  {
+    "stage": "comparison",
+    "duration_ms": 0.618,
+    "status": "UNSET"
+  },
+  {
+    "stage": "import",
+    "duration_ms": 0.083,
+    "status": "UNSET"
+  },
+  {
+    "stage": "import",
+    "duration_ms": 0.031,
+    "status": "ERROR"
+  },
+  {
+    "stage": "retry",
+    "duration_ms": 0.023,
+    "status": "UNSET"
+  },
+  {
+    "stage": "diff",
+    "duration_ms": 0.025,
+    "status": "UNSET"
+  },
+  {
+    "stage": "replay",
+    "duration_ms": 0.037,
+    "status": "UNSET"
+  }
+]

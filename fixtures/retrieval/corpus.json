@@ -1,0 +1,7 @@
+{"version":"synthetic-v1","passages":[
+{"id":"robots","source":"fixture:publisher-a","version":"1","text":"A noindex directive requests exclusion from the index."},
+{"id":"canonical","source":"fixture:publisher-b","version":"2","text":"A canonical link declares the preferred URL among duplicate pages."},
+{"id":"speed","source":"fixture:publisher-c","version":"1","text":"INP describes interaction responsiveness."},
+{"id":"conflict-a","source":"fixture:publisher-a","version":"1","text":"Fixture guidance permits indexing the archive."},
+{"id":"conflict-b","source":"fixture:publisher-b","version":"1","text":"Fixture guidance prohibits indexing the archive."}],
+"queries":[{"kind":"exact","query":"noindex","expected":["robots"]},{"kind":"exact","query":"INP","expected":["speed"]},{"kind":"paraphrase","query":"preferred address for duplicate pages","expected":["canonical"]},{"kind":"paraphrase","query":"slow user reactions","expected":["speed"]},{"kind":"conflict","query":"indexing archive","expected":["conflict-a","conflict-b"]},{"kind":"missing","query":"xylophonic zeppelins","expected":[]}]}

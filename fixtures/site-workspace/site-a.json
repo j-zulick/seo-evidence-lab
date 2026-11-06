@@ -1,0 +1,52 @@
+{
+  "schema": "x07-graph-input/v1",
+  "root": "https://a.test/",
+  "metadata": {
+    "source_ref": "synthetic-fixture:a",
+    "captured_at": "2026-01-01T00:00:00Z",
+    "inventory_complete": true,
+    "edges_complete": true,
+    "exclusions": [],
+    "rendering_mode": "raw",
+    "scope_kind": "whole-host",
+    "link_policy": "all-anchor-hrefs",
+    "capture_window": "synthetic-window-1",
+    "synthetic": true
+  },
+  "pages": [
+    {
+      "url": "https://a.test/",
+      "page_type": "home",
+      "links": [
+        "/catalog",
+        "/guide"
+      ]
+    },
+    {
+      "url": "https://a.test/catalog",
+      "page_type": "listing",
+      "links": [
+        "/item"
+      ]
+    },
+    {
+      "url": "https://a.test/item",
+      "page_type": "detail",
+      "links": [
+        "/catalog"
+      ]
+    },
+    {
+      "url": "https://a.test/guide",
+      "page_type": "article",
+      "links": [
+        "/item"
+      ]
+    },
+    {
+      "url": "https://a.test/hidden",
+      "page_type": "article",
+      "links": []
+    }
+  ]
+}

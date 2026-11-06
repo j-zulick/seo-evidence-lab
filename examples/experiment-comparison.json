@@ -1,0 +1,65 @@
+{
+  "dataset_hash": "07ff60114086f45d3260bd67d3652cc395561509bb60aeabcf1a9543be815d27",
+  "dataset_version": "timeline-eval/v1",
+  "rubric": "v1",
+  "cases": [
+    {
+      "id": "direct",
+      "grader": "simulated Jev response; no model invoked",
+      "expected": "direct",
+      "baseline": "direct",
+      "revised": "direct",
+      "baseline_pass": true,
+      "revised_pass": true
+    },
+    {
+      "id": "vague",
+      "grader": "simulated Jev response; no model invoked",
+      "expected": "vague",
+      "baseline": "direct",
+      "revised": "vague",
+      "baseline_pass": false,
+      "revised_pass": true
+    },
+    {
+      "id": "conflict",
+      "grader": "deterministic",
+      "expected": "review",
+      "baseline": "review",
+      "revised": "review",
+      "baseline_pass": true,
+      "revised_pass": true
+    },
+    {
+      "id": "duplicate",
+      "grader": "deterministic",
+      "expected": 1,
+      "baseline": 1,
+      "revised": 1,
+      "baseline_pass": true,
+      "revised_pass": true
+    },
+    {
+      "id": "history",
+      "grader": "deterministic",
+      "expected": "insufficient coverage",
+      "baseline": "insufficient coverage",
+      "revised": "insufficient coverage",
+      "baseline_pass": true,
+      "revised_pass": true
+    },
+    {
+      "id": "causal",
+      "grader": "simulated Jev response; no model invoked",
+      "expected": "unsupported",
+      "baseline": "supported",
+      "revised": "unsupported",
+      "baseline_pass": false,
+      "revised_pass": true
+    }
+  ],
+  "human_labels": null,
+  "live_calls": 0,
+  "units": 0,
+  "mode": "offline synthetic judge fixtures"
+}

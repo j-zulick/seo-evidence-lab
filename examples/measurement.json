@@ -1,0 +1,40 @@
+{
+  "gsc": {
+    "source": "Search Console",
+    "property": "sc-domain:owned.example",
+    "period": [
+      "2026-10-01",
+      "2026-10-28"
+    ],
+    "rows": [
+      {
+        "page": "https://owned.example/guide",
+        "query": "reset guide",
+        "country": "usa",
+        "device": "MOBILE",
+        "clicks": 14,
+        "impressions": 200,
+        "position": 5.1
+      }
+    ],
+    "coverage": "reported rows",
+    "source_hash": "5b5b6da51890adcea5cb35def548e063901e321e6dd9bda453fe684549c26639"
+  },
+  "crux": {
+    "source": "CrUX",
+    "scope": "origin",
+    "target": "https://owned.example/",
+    "device": "PHONE",
+    "period": [
+      "2026-10-01",
+      "2026-10-28"
+    ],
+    "p75": {
+      "largest_contentful_paint": 2100.0,
+      "interaction_to_next_paint": null,
+      "cumulative_layout_shift": null
+    },
+    "coverage": "reported metrics",
+    "source_hash": "c9a2e4ef5c34a24f729efc6d8213875ab0b8d9254f05e036807b0898813b72e2"
+  }
+}

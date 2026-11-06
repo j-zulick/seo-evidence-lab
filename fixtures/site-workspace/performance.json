@@ -1,0 +1,26 @@
+{
+  "schema": "x08-observations/v1",
+  "observations": [
+    {
+      "url": "https://fixture.invalid",
+      "source": "fixture",
+      "captured_at": "2026-11-04T00:00:00Z",
+      "device": "mobile",
+      "kind": "lab",
+      "synthetic": true,
+      "metrics": {
+        "lcp_ms": 2500,
+        "inp_ms": 501,
+        "cls": null
+      },
+      "raw": {
+        "content": "a",
+        "links": []
+      },
+      "rendered": {
+        "content": "b",
+        "links": []
+      }
+    }
+  ]
+}

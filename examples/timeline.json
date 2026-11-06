@@ -1,0 +1,215 @@
+{
+  "label": "Synthetic fixture \u00b7 local comparison criterion",
+  "counts": {
+    "attempts": 4,
+    "versions": 2
+  },
+  "attempts": [
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-01T12:00:00+00:00",
+      "response": {
+        "success": true,
+        "data": {
+          "markdown": "Reset instructions\nOpen settings.",
+          "metadata": {
+            "sourceURL": "https://edited.example/guide",
+            "statusCode": 200
+          }
+        }
+      }
+    },
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-03T12:00:00+00:00",
+      "response": {
+        "success": true,
+        "data": {
+          "markdown": "Reset instructions\nOpen settings.",
+          "metadata": {
+            "sourceURL": "https://edited.example/guide",
+            "statusCode": 200
+          }
+        }
+      }
+    },
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-08T12:00:00+00:00",
+      "response": {
+        "success": true,
+        "data": {
+          "markdown": "## How do I reset settings?\nOpen settings.",
+          "metadata": {
+            "sourceURL": "https://edited.example/guide",
+            "statusCode": 200
+          }
+        }
+      }
+    },
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-09T12:00:00+00:00",
+      "response": {
+        "success": false,
+        "error": "timeout"
+      }
+    }
+  ],
+  "first_observed_between": [
+    "2026-10-03T12:00:00+00:00",
+    "2026-10-08T12:00:00+00:00"
+  ],
+  "diff": [
+    "--- ",
+    "+++ ",
+    "@@ -1,2 +1,2 @@",
+    "-Reset instructions",
+    "+## How do I reset settings?",
+    " Open settings."
+  ],
+  "comparison": {
+    "before": {
+      "id": "747b4e9cbde26068ac6fde642eea7bfab6c553fc1b05ec3c73aff7eac1a4c62b",
+      "inputs": {
+        "article": "Reset instructions\nOpen settings.",
+        "guidance": {
+          "version": "synthetic/v1",
+          "rule": "heading_present"
+        },
+        "scoring": "heading/v1",
+        "evidence": true
+      },
+      "pins": {
+        "article": "9709f0e5a92370723ebafb7beb376343fc41974a3f956381a1e355f2df9955ca",
+        "guidance": "69998013bb0f12dbe24a6fd5dd5bcf54862178dadeb3a33db0815b26316d8db2",
+        "scoring": "ba9eec58f347cf3391c96de443800c2808c3c6f80465262e9ffdba6911912dbe",
+        "evidence": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+      },
+      "finding": "miss"
+    },
+    "after": {
+      "id": "e2b4c5215ca8184c18c991f004a68d66f25d704eb6517a09762af959ff7e2640",
+      "inputs": {
+        "article": "## How do I reset settings?\nOpen settings.",
+        "guidance": {
+          "version": "synthetic/v2",
+          "rule": "question_heading"
+        },
+        "scoring": "heading/v1",
+        "evidence": true
+      },
+      "pins": {
+        "article": "b72788f083324391331760383bf2f57ee104193e268ea4ed2fa02e0126bca4f0",
+        "guidance": "07e5bbae18fc1251ce29659df5b8e8eaa255403c351f67cb6f0d4c001abef73b",
+        "scoring": "ba9eec58f347cf3391c96de443800c2808c3c6f80465262e9ffdba6911912dbe",
+        "evidence": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+      },
+      "finding": "pass"
+    },
+    "counterfactuals": [
+      {
+        "changed": [
+          "article"
+        ],
+        "finding": "pass"
+      },
+      {
+        "changed": [
+          "guidance"
+        ],
+        "finding": "miss"
+      },
+      {
+        "changed": [
+          "article",
+          "guidance"
+        ],
+        "finding": "pass"
+      }
+    ],
+    "minimal_sufficient_changes": [
+      [
+        "article"
+      ]
+    ],
+    "status": "explained"
+  },
+  "series": [
+    {
+      "request": {
+        "target": "https://edited.example/guide",
+        "mode": "exact",
+        "country": "us",
+        "history_grouping": "daily",
+        "date_from": "2026-10-01",
+        "date_to": "2026-10-15"
+      },
+      "retrieved_at": "2026-10-16",
+      "provider": "synthetic Ahrefs-shaped export",
+      "keywords": [
+        {
+          "date": "2026-10-01",
+          "top3": 1,
+          "top4_10": 2
+        },
+        {
+          "date": "2026-10-15",
+          "top3": 1,
+          "top4_10": 5
+        }
+      ]
+    },
+    {
+      "request": {
+        "target": "https://control.example/guide",
+        "mode": "exact",
+        "country": "us",
+        "history_grouping": "daily",
+        "date_from": "2026-10-01",
+        "date_to": "2026-10-15"
+      },
+      "retrieved_at": "2026-10-16",
+      "provider": "synthetic Ahrefs-shaped export",
+      "keywords": [
+        {
+          "date": "2026-10-01",
+          "top3": 1,
+          "top4_10": 3
+        },
+        {
+          "date": "2026-10-15",
+          "top3": 1,
+          "top4_10": 6
+        }
+      ]
+    }
+  ],
+  "visibility": [
+    {
+      "before": 3,
+      "after": 6,
+      "delta": 3,
+      "verdict": "rose"
+    },
+    {
+      "before": 4,
+      "after": 7,
+      "delta": 3,
+      "verdict": "rose"
+    }
+  ],
+  "interpretation": "Both pages gained top-10 keywords. The edited page\u2019s search benefit is uncertain."
+}

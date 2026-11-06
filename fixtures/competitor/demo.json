@@ -1,0 +1,126 @@
+{
+  "captures": [
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-01T12:00:00+00:00",
+      "response": {
+        "success": true,
+        "data": {
+          "markdown": "Reset instructions\nOpen settings.",
+          "metadata": {
+            "sourceURL": "https://edited.example/guide",
+            "statusCode": 200
+          }
+        }
+      }
+    },
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-03T12:00:00+00:00",
+      "response": {
+        "success": true,
+        "data": {
+          "markdown": "Reset instructions\nOpen settings.",
+          "metadata": {
+            "sourceURL": "https://edited.example/guide",
+            "statusCode": 200
+          }
+        }
+      }
+    },
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-08T12:00:00+00:00",
+      "response": {
+        "success": true,
+        "data": {
+          "markdown": "## How do I reset settings?\nOpen settings.",
+          "metadata": {
+            "sourceURL": "https://edited.example/guide",
+            "statusCode": 200
+          }
+        }
+      }
+    },
+    {
+      "requested_url": "https://edited.example/guide",
+      "publisher": "Synthetic publisher",
+      "publisher_date": null,
+      "scraper_version": "fixture/v1",
+      "captured_at": "2026-10-09T12:00:00+00:00",
+      "response": {
+        "success": false,
+        "error": "timeout"
+      }
+    }
+  ],
+  "guidance": [
+    {
+      "version": "synthetic/v1",
+      "rule": "heading_present"
+    },
+    {
+      "version": "synthetic/v2",
+      "rule": "question_heading"
+    }
+  ],
+  "series": [
+    {
+      "request": {
+        "target": "https://edited.example/guide",
+        "mode": "exact",
+        "country": "us",
+        "history_grouping": "daily",
+        "date_from": "2026-10-01",
+        "date_to": "2026-10-15"
+      },
+      "retrieved_at": "2026-10-16",
+      "provider": "synthetic Ahrefs-shaped export",
+      "keywords": [
+        {
+          "date": "2026-10-01",
+          "top3": 1,
+          "top4_10": 2
+        },
+        {
+          "date": "2026-10-15",
+          "top3": 1,
+          "top4_10": 5
+        }
+      ]
+    },
+    {
+      "request": {
+        "target": "https://control.example/guide",
+        "mode": "exact",
+        "country": "us",
+        "history_grouping": "daily",
+        "date_from": "2026-10-01",
+        "date_to": "2026-10-15"
+      },
+      "retrieved_at": "2026-10-16",
+      "provider": "synthetic Ahrefs-shaped export",
+      "keywords": [
+        {
+          "date": "2026-10-01",
+          "top3": 1,
+          "top4_10": 3
+        },
+        {
+          "date": "2026-10-15",
+          "top3": 1,
+          "top4_10": 6
+        }
+      ]
+    }
+  ]
+}

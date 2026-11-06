@@ -1,0 +1,2 @@
+# Contributing
+Use a new local working copy and Python 3.12. Run ./setup/bootstrap_local.sh and ./setup/fixture_ci.sh. Include a minimal input and expected outcome for a regression. Use synthetic/public-safe examples; keep credentials, state databases, private captures and environment directories outside commits. Preserve existing manifests. Scope each change and document any unresolved verification. Publication and licensing are owner decisions.

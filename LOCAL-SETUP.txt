@@ -1,0 +1,4 @@
+Overnight local fixture successor
+Run ./walkthrough.sh with Python 3.12 (optionally set SEO_QA_BOOTSTRAP_PYTHON to its executable). Bootstrap installs requirements-runtime.lock and requirements-demo.lock, including test, tracing and MCP dependencies, into an isolated .venv. The walkthrough writes local reports to demo-output or SEO_DEMO_OUTPUT.
+Run ./setup/fixture_ci.sh for the portable suite. Start the UI via ./run-local.command; SEO_QA_LOCAL_PORT overrides port 8047. For browser acceptance use installed Chrome and .venv/bin/python setup/local_acceptance.py --output PATH.
+The public candidate archive contains selected fixture tests, application code and portfolio assets. Historical external transports, generated state, .venv, browser binaries, credentials, owner receipts and prior project documentation are outside the portable package. The source manifest lists its exact contents.

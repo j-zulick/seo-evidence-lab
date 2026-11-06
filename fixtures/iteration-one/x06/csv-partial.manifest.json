@@ -1,0 +1,11 @@
+{
+  "uploads": [
+    {
+      "path": "garden.csv",
+      "metadata_path": "garden.metadata.json"
+    },
+    {
+      "path": "software.json"
+    }
+  ]
+}

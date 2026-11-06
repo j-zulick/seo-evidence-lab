@@ -1,0 +1,105 @@
+{
+  "corpus_hash": "0035c450cf03d81e121644b3901ad84bc1633ed85853d8d034716fd888f3f115",
+  "queries": [
+    {
+      "kind": "exact",
+      "query": "noindex",
+      "expected": [
+        "robots"
+      ],
+      "results": [
+        {
+          "id": "robots",
+          "source": "fixture:publisher-a",
+          "version": "1",
+          "passage": "A noindex directive requests exclusion from the index.",
+          "sha256": "cdbde0095f290c3306d059261fde416159c7d0045635cc68a80a1643ce417a12"
+        }
+      ],
+      "all_expected_in_top_three": true,
+      "median_ms": 0.0062085000000000005
+    },
+    {
+      "kind": "exact",
+      "query": "INP",
+      "expected": [
+        "speed"
+      ],
+      "results": [
+        {
+          "id": "speed",
+          "source": "fixture:publisher-c",
+          "version": "1",
+          "passage": "INP describes interaction responsiveness.",
+          "sha256": "314c4476835d35351abc2dac5ef54355c519ed6cbff6c86f81b1d749d03a0daa"
+        }
+      ],
+      "all_expected_in_top_three": true,
+      "median_ms": 0.006083
+    },
+    {
+      "kind": "paraphrase",
+      "query": "preferred address for duplicate pages",
+      "expected": [
+        "canonical"
+      ],
+      "results": [
+        {
+          "id": "canonical",
+          "source": "fixture:publisher-b",
+          "version": "2",
+          "passage": "A canonical link declares the preferred URL among duplicate pages.",
+          "sha256": "19f77980f19f5a6cef08ee4e2d6e2b98c9c08ce5250765eaf589a9032ae18f64"
+        }
+      ],
+      "all_expected_in_top_three": true,
+      "median_ms": 0.0102915
+    },
+    {
+      "kind": "paraphrase",
+      "query": "slow user reactions",
+      "expected": [
+        "speed"
+      ],
+      "results": [],
+      "all_expected_in_top_three": false,
+      "median_ms": 0.003708
+    },
+    {
+      "kind": "conflict",
+      "query": "indexing archive",
+      "expected": [
+        "conflict-a",
+        "conflict-b"
+      ],
+      "results": [
+        {
+          "id": "conflict-a",
+          "source": "fixture:publisher-a",
+          "version": "1",
+          "passage": "Fixture guidance permits indexing the archive.",
+          "sha256": "e520ed5a489b13a2ca76dfd79e7007bd7d0ae34c58080e5724f2cf7e0252485b"
+        },
+        {
+          "id": "conflict-b",
+          "source": "fixture:publisher-b",
+          "version": "1",
+          "passage": "Fixture guidance prohibits indexing the archive.",
+          "sha256": "43ebb168a38577a6bfd5bedc705c93bbd06cc52a9c4f4d4fe4f6d853cdb1077b"
+        }
+      ],
+      "all_expected_in_top_three": true,
+      "median_ms": 0.009833
+    },
+    {
+      "kind": "missing",
+      "query": "xylophonic zeppelins",
+      "expected": [],
+      "results": [],
+      "all_expected_in_top_three": true,
+      "median_ms": 0.0031045
+    }
+  ],
+  "accuracy": 0.8333333333333334,
+  "definition": "All expected passages retrieved in top three; empty expectation requires no matches. Warm in-memory lexical search, 30 repetitions."
+}

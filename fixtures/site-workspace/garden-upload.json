@@ -1,0 +1,61 @@
+{
+  "metadata": {
+    "captured_at": "2026-01-01T10:00:00Z",
+    "complete": true,
+    "configuration_hash": "fixture-config",
+    "exclusions": [],
+    "rendering_mode": "raw",
+    "schema": "crawl-upload/v1",
+    "scope": [
+      "https://garden.test/"
+    ],
+    "source_ref": "fixture:two-sites/v1",
+    "source_type": "synthetic",
+    "tool_version": "fixture-1"
+  },
+  "pages": [
+    {
+      "links": [
+        "https://garden.test/about"
+      ],
+      "page_type": "home",
+      "performance": [
+        {
+          "captured_at": "2026-01-01T10:00:00Z",
+          "device": "mobile",
+          "kind": "lab",
+          "metrics": {
+            "cls": 0,
+            "lcp_ms": 2400
+          },
+          "source": "fixture:lab"
+        }
+      ],
+      "raw": {
+        "capture_id": "pair-1",
+        "captured_at": "2026-01-01T10:00:00Z",
+        "content": "Raw",
+        "links": [],
+        "source": "fixture:raw"
+      },
+      "rendered": {
+        "capture_id": "pair-1",
+        "captured_at": "2026-01-01T10:00:00Z",
+        "content": "Rendered",
+        "links": [],
+        "source": "fixture:rendered"
+      },
+      "status": 200,
+      "title": "Garden",
+      "url": "https://garden.test/"
+    },
+    {
+      "links": [],
+      "page_type": "about",
+      "status": 200,
+      "title": "About",
+      "url": "https://garden.test/about"
+    }
+  ],
+  "schema": "crawl-upload/v1"
+}

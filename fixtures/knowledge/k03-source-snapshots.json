@@ -1,0 +1,399 @@
+{
+  "changed_body_paragraph": {
+    "historical": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:f5a84ecee373a656e708675bed76ec50a1de5f0d090f200b069533127f157a81",
+          "canonical_url": "https://body.example/docs",
+          "publisher": "body",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:6a8e28d585f9b40b2a83b9989da173b594f10f3815780e615c77bd19c877083c",
+          "source_id": "src:f5a84ecee373a656e708675bed76ec50a1de5f0d090f200b069533127f157a81",
+          "captured_at": "2026-10-01T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "028b32bdd3b1bb525060427675873dd7d5a339df0a3530201e469b655528802e",
+          "text_sha256": "028b32bdd3b1bb525060427675873dd7d5a339df0a3530201e469b655528802e",
+          "extractor": "plain-v1"
+        },
+        "text": "Résumé\n\n  The guide describes crawling.\r\n"
+      }
+    ],
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:f5a84ecee373a656e708675bed76ec50a1de5f0d090f200b069533127f157a81",
+          "canonical_url": "https://body.example/docs",
+          "publisher": "body",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:5490c27ad412b7100529c5f0ed91839df0fd4ef78523d93721805a6dab774288",
+          "source_id": "src:f5a84ecee373a656e708675bed76ec50a1de5f0d090f200b069533127f157a81",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "0bb3cde50d4cce8e5b6ace61049903acbd128777e625c56847df7504eb9fdd1e",
+          "text_sha256": "0bb3cde50d4cce8e5b6ace61049903acbd128777e625c56847df7504eb9fdd1e",
+          "extractor": "plain-v1"
+        },
+        "text": "Résumé\n\n  The guide describes indexing.\r\n"
+      }
+    ]
+  },
+  "template_only_change": {
+    "historical": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:d89d3282bb0e01b09bac110a36f16e7cc3ab1160e679e5dc39874e1a5172d6c9",
+          "canonical_url": "https://template.example/docs",
+          "publisher": "template",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:2e3976d803b8e9f6ed22b223cd71620196f794756354af6411d5be311da3686a",
+          "source_id": "src:d89d3282bb0e01b09bac110a36f16e7cc3ab1160e679e5dc39874e1a5172d6c9",
+          "captured_at": "2026-10-01T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "f94fb77669ac2f24b425cfb1edc99c81aa6a7ba53e9698e3788e1e72ca318cce",
+          "text_sha256": "f94fb77669ac2f24b425cfb1edc99c81aa6a7ba53e9698e3788e1e72ca318cce",
+          "extractor": "plain-v1"
+        },
+        "text": "Home | Docs\n\nUse UTF-8.\n",
+        "template_lines": [
+          1
+        ]
+      }
+    ],
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:d89d3282bb0e01b09bac110a36f16e7cc3ab1160e679e5dc39874e1a5172d6c9",
+          "canonical_url": "https://template.example/docs",
+          "publisher": "template",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:ccde3cf8c446417a0e1b993088954d54528746780c316d87f7cf6760271bc0e9",
+          "source_id": "src:d89d3282bb0e01b09bac110a36f16e7cc3ab1160e679e5dc39874e1a5172d6c9",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "bdd7f811bc29d8eb2ee5548f6b9f88b95dc7db486b02a63364266fffb90d1b7e",
+          "text_sha256": "bdd7f811bc29d8eb2ee5548f6b9f88b95dc7db486b02a63364266fffb90d1b7e",
+          "extractor": "plain-v1"
+        },
+        "text": "Menu | Docs | Contact\r\nUse UTF-8.\r\n",
+        "template_lines": [
+          1
+        ]
+      }
+    ]
+  },
+  "changed_date": {
+    "historical": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:f6247d422b9510cee950efa8a53ce47fa4c4a45c6202a569fc6e3f3819efcd90",
+          "canonical_url": "https://date.example/docs",
+          "publisher": "date",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:f838cdda1b1b598f59bfd3355e8602a79ca99ea5e14c56fad24a6556a8308d68",
+          "source_id": "src:f6247d422b9510cee950efa8a53ce47fa4c4a45c6202a569fc6e3f3819efcd90",
+          "captured_at": "2026-10-01T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "75094df5e9efdf4ddc7d0907496604f2c3a38448adfc9e344f8b40c8c2f01151",
+          "text_sha256": "75094df5e9efdf4ddc7d0907496604f2c3a38448adfc9e344f8b40c8c2f01151",
+          "extractor": "plain-v1"
+        },
+        "text": "Effective January 1, 2027.\n"
+      }
+    ],
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:f6247d422b9510cee950efa8a53ce47fa4c4a45c6202a569fc6e3f3819efcd90",
+          "canonical_url": "https://date.example/docs",
+          "publisher": "date",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:fdca2674693fab0ae564e2a4364ba48997132a49afb70bf0645e604d3eddcd9a",
+          "source_id": "src:f6247d422b9510cee950efa8a53ce47fa4c4a45c6202a569fc6e3f3819efcd90",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "93a8e26ba667ea8f6712e2411712412557cae2edbe7929dba5230490f1f14f21",
+          "text_sha256": "93a8e26ba667ea8f6712e2411712412557cae2edbe7929dba5230490f1f14f21",
+          "extractor": "plain-v1"
+        },
+        "text": "Effective February 1, 2027.\n"
+      }
+    ]
+  },
+  "removed_feature": {
+    "historical": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:70ed2e9b8d3c4abba4aa58a3bead01fe4777646ab3216d6290d65f70ebc300fd",
+          "canonical_url": "https://feature.example/docs",
+          "publisher": "feature",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:e05b7c3ef311cee09649a2ac65d14f8c21d6c0717ca856f97a3571ef59f180b5",
+          "source_id": "src:70ed2e9b8d3c4abba4aa58a3bead01fe4777646ab3216d6290d65f70ebc300fd",
+          "captured_at": "2026-10-01T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "2ac3033edf7f54d14d635a321084fdd0d94193fae2b30515a3d928e790bbc2b1",
+          "text_sha256": "2ac3033edf7f54d14d635a321084fdd0d94193fae2b30515a3d928e790bbc2b1",
+          "extractor": "plain-v1"
+        },
+        "text": "Export guide\nSupports XML exports.\n"
+      }
+    ],
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:70ed2e9b8d3c4abba4aa58a3bead01fe4777646ab3216d6290d65f70ebc300fd",
+          "canonical_url": "https://feature.example/docs",
+          "publisher": "feature",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:483ac828eeb17cf8831dde5459354e8c81a9f6c3bae44976f0114689ac0a8214",
+          "source_id": "src:70ed2e9b8d3c4abba4aa58a3bead01fe4777646ab3216d6290d65f70ebc300fd",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "3da9161c942fe17b325f6f8fe1ba3978e6746107d0fd18187b31b99afa41e124",
+          "text_sha256": "3da9161c942fe17b325f6f8fe1ba3978e6746107d0fd18187b31b99afa41e124",
+          "extractor": "plain-v1"
+        },
+        "text": "Export guide\n"
+      }
+    ]
+  },
+  "updated_threshold": {
+    "historical": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:78c9e062ed147d65cae23d5485a637b51764496f28201f9ab4e392d8e4a3e5b8",
+          "canonical_url": "https://threshold.example/docs",
+          "publisher": "threshold",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:d25582f9eec1e9a6d07bde7659d808afff38de4dae618a3f75cfec5a1cb77a82",
+          "source_id": "src:78c9e062ed147d65cae23d5485a637b51764496f28201f9ab4e392d8e4a3e5b8",
+          "captured_at": "2026-10-01T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "9bc0326188e2714bb4d4c10731edf7b6ba2c62b78889b4033d46f338234496d6",
+          "text_sha256": "9bc0326188e2714bb4d4c10731edf7b6ba2c62b78889b4033d46f338234496d6",
+          "extractor": "plain-v1"
+        },
+        "text": "The maximum is 5 redirects.\n"
+      }
+    ],
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:78c9e062ed147d65cae23d5485a637b51764496f28201f9ab4e392d8e4a3e5b8",
+          "canonical_url": "https://threshold.example/docs",
+          "publisher": "threshold",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:a73db6de342cdc503e82122fbdcb23a5390b6015f98baab144b11cfa5c043f1d",
+          "source_id": "src:78c9e062ed147d65cae23d5485a637b51764496f28201f9ab4e392d8e4a3e5b8",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "e50587c208062463dbfcf1cad6f9f1f31e4886114b6f97de8df00c2f601cf368",
+          "text_sha256": "e50587c208062463dbfcf1cad6f9f1f31e4886114b6f97de8df00c2f601cf368",
+          "extractor": "plain-v1"
+        },
+        "text": "The maximum is 8 redirects.\n"
+      }
+    ]
+  },
+  "duplicate_syndicated_story": {
+    "historical": [],
+    "historical_complete": true,
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:93f1aff3b13e7f0f32ea93033852779feaf9dfc1ccb1ae76b9846964ac54d35a",
+          "canonical_url": "https://mirror-one.example/docs",
+          "publisher": "mirror-one",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:735a5dea36ef8081750d01c0b6ac28a075d261e9054382b3e3f23e48678ec013",
+          "source_id": "src:93f1aff3b13e7f0f32ea93033852779feaf9dfc1ccb1ae76b9846964ac54d35a",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "f5e8e667bcfc8f4806d7f1385e7544540523c9d36ede891ae48ba53ee69ccd73",
+          "text_sha256": "f5e8e667bcfc8f4806d7f1385e7544540523c9d36ede891ae48ba53ee69ccd73",
+          "extractor": "plain-v1"
+        },
+        "text": "News | Home\nFeature X is now supported.\n",
+        "template_lines": [
+          1
+        ],
+        "announcement": true
+      },
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:3aeff0a7b8c6da8c4388c9475ddf4f0a19a23652ccbbe99e6511ccf4e1982999",
+          "canonical_url": "https://mirror-two.example/docs",
+          "publisher": "mirror-two",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:2fd871739f33ab8a33b851c60e95b5cd03a50a1ca21d9a7812a9fff5929fe815",
+          "source_id": "src:3aeff0a7b8c6da8c4388c9475ddf4f0a19a23652ccbbe99e6511ccf4e1982999",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "48a8776bb7e812be1b8db216db368e6fb0f50065353529addb16ee0ab936f069",
+          "text_sha256": "48a8776bb7e812be1b8db216db368e6fb0f50065353529addb16ee0ab936f069",
+          "extractor": "plain-v1"
+        },
+        "text": "Feature X is now supported.\r\n",
+        "announcement": true
+      }
+    ]
+  },
+  "contradictory_document": {
+    "historical": [],
+    "historical_complete": true,
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:24e00cd1a361363e789b16f784d42e2bfc85332b20809c7262c99f2f613aad93",
+          "canonical_url": "https://publisher-one.example/docs",
+          "publisher": "publisher-one",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:5e8961900c3ff39750ef3af923ef2880c6d16f2a31e30c23e49a1b890f351c38",
+          "source_id": "src:24e00cd1a361363e789b16f784d42e2bfc85332b20809c7262c99f2f613aad93",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "0c4eb5d0aa589f108ba7fcfc1d310189af9961a13ec23004670b07fccc75c665",
+          "text_sha256": "0c4eb5d0aa589f108ba7fcfc1d310189af9961a13ec23004670b07fccc75c665",
+          "extractor": "plain-v1"
+        },
+        "text": "Clients must send a header.\n",
+        "conflict_scope": "header-v1"
+      },
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:bc4a0a7e940be929d8952684226e1d77aa7c0129daf9452f61846fb4c4225659",
+          "canonical_url": "https://publisher-two.example/docs",
+          "publisher": "publisher-two",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:023e32246d164d2c7fc8208eae882d7f2169c58eae534e9ec49048aebb8dba4e",
+          "source_id": "src:bc4a0a7e940be929d8952684226e1d77aa7c0129daf9452f61846fb4c4225659",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "131fa5eb947b05f54d4fb9d3ea7d6d5ef54916396f139b8988394a5fe971901d",
+          "text_sha256": "131fa5eb947b05f54d4fb9d3ea7d6d5ef54916396f139b8988394a5fe971901d",
+          "extractor": "plain-v1"
+        },
+        "text": "Clients must not send a header.\n",
+        "conflict_scope": "header-v1"
+      }
+    ]
+  },
+  "missing_snapshot": {
+    "historical": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:811efb008b2271b76e44c37479aef12937f9e67e88ae69ee41688f97bfb09587",
+          "canonical_url": "https://missing.example/docs",
+          "publisher": "missing",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:d3108025f191f76606398fb666df546f590a4dbd19f0d21280439f2f6102d164",
+          "source_id": "src:811efb008b2271b76e44c37479aef12937f9e67e88ae69ee41688f97bfb09587",
+          "captured_at": "2026-10-01T00:00:00Z",
+          "availability": "captured",
+          "raw_sha256": "0822d8e9ef3f04b831fafaf4cc717e1e6376b669b72055fc56a5e5e89eb08b90",
+          "text_sha256": "0822d8e9ef3f04b831fafaf4cc717e1e6376b669b72055fc56a5e5e89eb08b90",
+          "extractor": "plain-v1"
+        },
+        "text": "The guide describes crawling.\n"
+      }
+    ],
+    "current": [
+      {
+        "source": {
+          "schema_version": 1,
+          "id": "src:811efb008b2271b76e44c37479aef12937f9e67e88ae69ee41688f97bfb09587",
+          "canonical_url": "https://missing.example/docs",
+          "publisher": "missing",
+          "authority": "official_primary",
+          "status": "discovered"
+        },
+        "snapshot": {
+          "schema_version": 1,
+          "id": "snap:fce726179789cf9d4a47e10272a741cc5bf773fb51cbe8d8f1e69ac955409d83",
+          "source_id": "src:811efb008b2271b76e44c37479aef12937f9e67e88ae69ee41688f97bfb09587",
+          "captured_at": "2026-10-02T00:00:00Z",
+          "availability": "missing",
+          "raw_sha256": null,
+          "text_sha256": null,
+          "extractor": null
+        },
+        "text": null
+      }
+    ]
+  }
+}

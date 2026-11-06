@@ -1,0 +1,157 @@
+[
+  {
+    "id": "ready",
+    "brief": "Keep canonical, allow indexing and crawling, preserve Shipping: 5 days; HTTP 200.",
+    "promises": [
+      {
+        "key": "canonical",
+        "value": "https://pilot.example.test/category"
+      },
+      {
+        "key": "indexable",
+        "value": true
+      },
+      {
+        "key": "crawlable",
+        "value": true
+      },
+      {
+        "key": "required_text",
+        "value": [
+          "Shipping: 5 days"
+        ]
+      },
+      {
+        "key": "allowed_statuses",
+        "value": [
+          200
+        ]
+      }
+    ],
+    "capture": {
+      "html": "<link rel=\"canonical\" href=\"https://pilot.example.test/category\"><meta name=\"robots\" content=\"index\"><p>Shipping: 5 days</p>",
+      "robots_txt": "User-agent: *\nAllow: /",
+      "status": 200
+    },
+    "url": "https://pilot.example.test/category",
+    "origin": "synthetic",
+    "domain": "seo",
+    "store": "disposable-seo-local"
+  },
+  {
+    "id": "regression",
+    "brief": "Keep canonical and allow indexing.",
+    "promises": [
+      {
+        "key": "canonical",
+        "value": "https://pilot.example.test/category"
+      },
+      {
+        "key": "indexable",
+        "value": true
+      }
+    ],
+    "capture": {
+      "html": "<link rel=\"canonical\" href=\"/old\"><meta name=\"robots\" content=\"noindex\">",
+      "status": 200
+    },
+    "url": "https://pilot.example.test/category",
+    "origin": "synthetic",
+    "domain": "seo",
+    "store": "disposable-seo-local"
+  },
+  {
+    "id": "blocked",
+    "brief": "Verify HTTP 200 and indexing eligibility.",
+    "promises": [
+      {
+        "key": "allowed_statuses",
+        "value": [
+          200
+        ]
+      },
+      {
+        "key": "indexable",
+        "value": true
+      }
+    ],
+    "capture": {
+      "html": "Access denied",
+      "status": 403
+    },
+    "url": "https://pilot.example.test/category",
+    "origin": "synthetic",
+    "domain": "seo",
+    "store": "disposable-seo-local"
+  },
+  {
+    "id": "missing-robots",
+    "brief": "Verify crawling and indexing eligibility. Robots capture missing.",
+    "promises": [
+      {
+        "key": "crawlable",
+        "value": true
+      },
+      {
+        "key": "indexable",
+        "value": true
+      }
+    ],
+    "capture": {
+      "html": "<link rel=\"canonical\" href=\"https://pilot.example.test/category\"><meta name=\"robots\" content=\"index\"><p>Shipping: 5 days</p>",
+      "status": 200
+    },
+    "url": "https://pilot.example.test/category",
+    "origin": "synthetic",
+    "domain": "seo",
+    "store": "disposable-seo-local"
+  },
+  {
+    "id": "mixed-scope",
+    "brief": "Allow indexing, verify ranking position one and prove conversion uplift.",
+    "promises": [
+      {
+        "key": "indexable",
+        "value": true
+      },
+      {
+        "key": "ranking_position",
+        "value": 1
+      },
+      {
+        "key": "conversion_uplift",
+        "value": true
+      }
+    ],
+    "capture": {
+      "html": "<link rel=\"canonical\" href=\"https://pilot.example.test/category\"><meta name=\"robots\" content=\"index\"><p>Shipping: 5 days</p>",
+      "status": 200
+    },
+    "url": "https://pilot.example.test/category",
+    "origin": "synthetic",
+    "domain": "seo",
+    "store": "disposable-seo-local"
+  },
+  {
+    "id": "contradictory",
+    "brief": "Require both indexable and noindex; owner clarification missing.",
+    "promises": [
+      {
+        "key": "indexable",
+        "value": true
+      },
+      {
+        "key": "indexable",
+        "value": false
+      }
+    ],
+    "capture": {
+      "html": "<link rel=\"canonical\" href=\"https://pilot.example.test/category\"><meta name=\"robots\" content=\"index\"><p>Shipping: 5 days</p>",
+      "status": 200
+    },
+    "url": "https://pilot.example.test/category",
+    "origin": "synthetic",
+    "domain": "seo",
+    "store": "disposable-seo-local"
+  }
+]

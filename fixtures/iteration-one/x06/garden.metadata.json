@@ -1,0 +1,14 @@
+{
+  "captured_at": "2026-01-01T10:00:00Z",
+  "complete": true,
+  "configuration_hash": "fixture-config",
+  "exclusions": [],
+  "rendering_mode": "raw",
+  "schema": "crawl-upload/v1",
+  "scope": [
+    "https://garden.test/"
+  ],
+  "source_ref": "fixture:two-sites/v1",
+  "source_type": "synthetic",
+  "tool_version": "fixture-1"
+}
