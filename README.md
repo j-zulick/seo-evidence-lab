@@ -40,3 +40,6 @@ Run `./setup/fixture_ci.sh` after bootstrap. Browser verification uses installed
 **Failure case:** the earlier integrated app imported local-only modules that the historical hosted allowlist omitted. Packaging now refuses that composition before creating an archive. The fixture suite checks this boundary. The trace walkthrough deliberately requests a causal claim the timeline does not make; its failed assertion is captured locally for inspection.
 
 **Future integrations:** actual provider access, real source review, account isolation and hosted acceptance require separate evidence. The included demo uses zero live Ahrefs, model or evaluation calls. No schedule is installed.
+
+## Emerging news to reviewed guidance
+The next integration connects the user's custom SEO/LLM-visibility news agent and research/scraper pipeline to this evidence trail. The local demo includes a [community lead review](NEWS-INTELLIGENCE.md) page at `/qa/community-news`. It preserves the difference between an emerging report, a source awaiting inspection, and approved guidance. Live Reddit and connected news ingestion remain future work.
