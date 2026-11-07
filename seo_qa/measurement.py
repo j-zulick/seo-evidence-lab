@@ -23,15 +23,29 @@ def number(value):
 def gsc(payload):
     req = payload['request']
     dims = req['dimensions']
+    if not isinstance(dims, list) or any(not isinstance(dim, str) or not dim for dim in dims):
+        raise ValueError('Dimension names must be a list of nonempty strings')
     if 'page' not in dims or len(dims) != len(set(dims)):
         raise ValueError('Unique dimensions including page required')
     period = window(req['startDate'], req['endDate'])
-    if len(payload['response'].get('rows',[]))>2000:
-        raise ValueError('Row limit exceeded')
-    rows = []
-    for row in payload['response'].get('rows', []):
-        fields = dict(zip(dims, row['keys'], strict=True))
+    source_rows = payload['response'].get('rows', [])
+    if not isinstance(source_rows, list) or len(source_rows) > 2000:
+        raise ValueError('Expected at most 2000 measurement rows')
+    rows, seen = [], set()
+    for row in source_rows:
+        keys = row.get('keys') if isinstance(row, dict) else None
+        if not isinstance(keys, list) or any(not isinstance(key, str) for key in keys):
+            raise ValueError('Dimension keys must be a list of strings')
+        fields = dict(zip(dims, keys, strict=True))
         fields['page'] = url_key(fields['page'])
+        if 'date' in fields:
+            observed = date.fromisoformat(fields['date'])
+            if not date.fromisoformat(period[0]) <= observed <= date.fromisoformat(period[1]):
+                raise ValueError('Observation date is outside the reporting window')
+        identity = tuple(fields[dim] for dim in dims)
+        if identity in seen:
+            raise ValueError('Duplicate dimension-key observation')
+        seen.add(identity)
         for key in ('clicks', 'impressions', 'position'):
             fields[key] = number(row[key])
         rows.append(fields)
@@ -47,12 +61,38 @@ def crux(payload):
     scopes = [s for s in ('url', 'origin') if s in key]
     if len(scopes) != 1:
         raise ValueError('One CrUX scope required')
+    # A retained request must identify this response. Explicit API normalization
+    # can change a URL; require both ends of that mapping rather than guessing.
+    request = payload.get('request')
+    if request is not None:
+        if not isinstance(request, dict):
+            raise ValueError('CrUX request must be an object')
+        requested_scopes = [scope for scope in ('url', 'origin') if scope in request]
+        if requested_scopes != scopes:
+            raise ValueError('CrUX request and response scope differ')
+        scope = scopes[0]
+        requested_target, returned_target = url_key(request[scope]), url_key(key[scope])
+        if requested_target != returned_target:
+            normalization = payload.get('urlNormalizationDetails')
+            if (scope != 'url' or not isinstance(normalization, dict)
+                    or url_key(normalization.get('originalUrl')) != requested_target
+                    or url_key(normalization.get('normalizedUrl')) != returned_target):
+                raise ValueError('CrUX request and response target differ')
+        if request.get('formFactor', 'ALL') != key.get('formFactor', 'ALL'):
+            raise ValueError('CrUX request and response device differ')
     dates = record['collectionPeriod']
     period = window(*(date(**dates[k]).isoformat() for k in ('firstDate', 'lastDate')))
     metrics = {}
     for name in ('largest_contentful_paint', 'interaction_to_next_paint', 'cumulative_layout_shift'):
         raw = record['metrics'].get(name, {}).get('percentiles', {}).get('p75')
-        metrics[name] = None if raw is None else number(raw if isinstance(raw,bool) else float(raw))
+        if raw is None:
+            metrics[name] = None
+        else:
+            try:
+                # CrUX supplies decimal metrics such as CLS as numeric strings.
+                metrics[name] = number(raw if isinstance(raw, bool) else float(raw))
+            except (TypeError, ValueError, OverflowError) as exc:
+                raise ValueError('Invalid CrUX percentile: ' + name) from exc
     return dict(source='CrUX', scope=scopes[0], target=url_key(key[scopes[0]]), device=key.get('formFactor','ALL'),
                 period=period, p75=metrics, coverage='reported metrics' if any(v is not None for v in metrics.values()) else 'unavailable',
                 source_hash=digest(payload))
