@@ -1,1 +1,9 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source inbox</title><style>body{font:18px/1.6 system-ui;max-width:800px;margin:2rem auto;padding:1rem}pre{white-space:pre-wrap;background:#eff5f2;padding:1rem}button{padding:.6em 1em}</style><a href="/qa/competitors">Back to timeline</a><h1>Source change inbox</h1><p>Synthetic capture from {{entry.url}}</p><pre>{{entry.diff|join('\n')}}</pre><p>Record a local triage decision. Publishing guidance requires separate review.</p><form method="post"><input type="hidden" name="key" value="{{entry.key}}"><input type="hidden" name="csrf_token" value="{{csrf}}"><button name="action" value="accept">Accept for review</button> <button name="action" value="defer">Defer</button></form><h2>Decision history</h2>{% for action,time in decisions %}<p>{{time}} UTC · {{action}}</p>{% else %}<p>Pending review.</p>{% endfor %}</html>
+{% extends "evidence_base.html" %}
+{% block title %}Source inbox · SEO Evidence Lab{% endblock %}
+{% block content %}
+<header class="page-head"><p class="eyebrow">Review · synthetic saved change</p><h1>A source changed.<br>Decide what to inspect.</h1><p class="intro break">{{entry.url}}</p></header>
+<article class="card"><span class="label">Captured diff</span><pre>{{entry.diff|join('
+')}}</pre><p>Record a local triage decision. Publishing guidance requires separate review.</p>
+<form class="actions" method="post"><input type="hidden" name="key" value="{{entry.key}}"><input type="hidden" name="csrf_token" value="{{csrf}}"><button name="action" value="accept">Accept for review</button><button name="action" value="defer">Defer</button></form></article>
+<section class="section"><h2>Decision history</h2>{% for action,time in decisions %}<p>{{time}} UTC · {{action}}</p>{% else %}<div class="callout"><p>Pending review.</p></div>{% endfor %}</section>
+{% endblock %}

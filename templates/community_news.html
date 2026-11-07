@@ -1,1 +1,10 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Community news leads</title><style>body{font:18px/1.6 system-ui;max-width:800px;margin:2rem auto;padding:1rem}article{padding:1rem;border:1px solid #ccc;margin:1rem 0}</style><a href="/qa/competitors">Evidence timeline</a><h1>Community news leads</h1><p>Synthetic subreddit observations for reviewing emerging SEO and LLM visibility claims. Each lead requires corroboration before it can change published guidance.</p>{% for lead in data.leads %}<article>{% if lead.status=='removed' %}<p>Removed observation · content cleared</p>{% else %}<h2>{{lead.title}}</h2><p>{{lead.subreddit}} · {{lead.status}}</p><p>Created {{lead.created_at}} · observed {{lead.observed_at}}</p>{% for link in lead.primary_sources %}<a href="{{link}}">Inspect linked primary source</a>{% endfor %}{% endif %}</article>{% endfor %}<p>Live Reddit access requires provider approval. This walkthrough reads packaged fixtures.</p></html>
+{% extends "evidence_base.html" %}
+{% block title %}News leads · SEO Evidence Lab{% endblock %}
+{% block content %}
+<header class="page-head"><p class="eyebrow">Discover · synthetic community observations</p><h1>Start with a lead.<br>Follow it to the source.</h1><p class="intro">Emerging SEO and LLM-visibility reports enter a review queue. A linked document gives you somewhere to investigate.</p></header>
+{% for lead in data.leads %}<article class="card lead">
+{% if lead.status=='removed' %}<span class="tag">Removed</span><h2 style="margin-top:12px">Content cleared</h2><p class="quiet">The observation’s text is withheld from this view.</p>
+{% else %}<span class="label">{{lead.subreddit}}</span><h2>{{lead.title}}</h2><p><span class="tag warn">{{lead.status}}</span></p><p class="small">Created {{lead.created_at}}<br>Observed {{lead.observed_at}}</p>{% for link in lead.primary_sources %}<div class="actions"><a href="{{link}}">Inspect linked primary source ↗</a></div><p class="small break">{{link}}</p>{% endfor %}{% endif %}
+</article>{% endfor %}
+<div class="callout"><strong>Discovery → corroboration → guidance</strong><p>The planned news-agent and research connection will feed this workflow. These packaged leads are synthetic; live Reddit collection requires provider approval.</p></div>
+{% endblock %}

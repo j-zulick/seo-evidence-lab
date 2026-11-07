@@ -13,7 +13,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header><div class="inner"><a class="brand" href="/qa">SEO QA<small>Evidence first. Clear next steps.</small></a><nav aria-label="Main"><a href="/qa">Audit workspace</a>{% if local_botworthiness %}<a href="/qa/botworthiness">Bot-worthiness</a><a href="/qa/competitors">Competitor timeline</a>{% endif %}<a href="/">Technical review desk</a>{% if browser_auth %}<form action="/logout" method="post"><input type="hidden" name="csrf_token" value="{{csrf}}"><button class="secondary" style="min-height:32px;padding:4px 12px">Sign out</button></form>{% endif %}</nav></div></header>
+<header><div class="inner"><a class="brand" href="/qa">SEO QA<small>Evidence first. Clear next steps.</small></a><nav aria-label="Main"><a href="/qa">Audit workspace</a>{% if local_botworthiness %}<a href="/qa/botworthiness">Bot-worthiness</a><a href="/qa/lab">Evidence lab</a><a href="/qa/competitors">Competitor timeline</a>{% endif %}<a href="/">Technical review desk</a>{% if browser_auth %}<form action="/logout" method="post"><input type="hidden" name="csrf_token" value="{{csrf}}"><button class="secondary" style="min-height:32px;padding:4px 12px">Sign out</button></form>{% endif %}</nav></div></header>
 <main id="main">
 {% if page == 'start' %}
   <div class="topline"><div><div class="eyebrow">Your audit workspace</div><h1>A clearer view of your content.</h1><p class="intro">Check the basics, understand what needs attention, and keep the evidence behind every finding.</p></div><span class="pill">{% if hosted and available %}Private queued workspace{% elif available %}Local workspace{% else %}Preview · read-only{% endif %}</span></div>

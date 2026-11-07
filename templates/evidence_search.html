@@ -1,1 +1,8 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Evidence search</title><style>body{max-width:800px;margin:2rem auto;padding:1rem;font:18px/1.6 system-ui}code{overflow-wrap:anywhere}</style><a href="/qa/competitors">Back to timeline</a><h1>Search source passages</h1><form><label for="q">Search the synthetic corpus</label> <input name="q" id="q" maxlength="512" value="{{query}}"><button>Search</button></form>{% for hit in hits %}<article><h2>{{hit.source}} · version {{hit.version}}</h2><blockquote>{{hit.passage}}</blockquote><small>Passage {{hit.id}} · <code>{{hit.sha256}}</code></small></article>{% else %}{% if query %}<p>No matching evidence.</p>{% endif %}{% endfor %}</html>
+{% extends "evidence_base.html" %}
+{% block title %}Evidence search · SEO Evidence Lab{% endblock %}
+{% block content %}
+<header class="page-head"><p class="eyebrow">Investigate · frozen synthetic corpus</p><h1>Find the passage.<br>Keep its provenance.</h1><p class="intro">Search the saved examples by their words. Try “noindex,” “INP,” or “indexing archive” to inspect a conflict.</p></header>
+<form class="search" method="get"><div><label for="q">Search source passages</label><input name="q" id="q" maxlength="512" value="{{query}}" placeholder="e.g. noindex"></div><button>Search</button></form>
+{% for hit in hits %}<article class="card lead"><span class="label">{{hit.source}} · version {{hit.version}}</span><h2>{{hit.id}}</h2><blockquote>{{hit.passage}}</blockquote><p class="hash">{{hit.sha256}}</p></article>
+{% else %}{% if query %}<div class="card"><h2>No matching evidence.</h2><p class="quiet">Try a term present in the source. The evaluation page shows a paraphrase this lexical search misses.</p><div class="actions"><a href="/qa/evaluations">Inspect retrieval evaluation →</a></div></div>{% endif %}{% endfor %}
+{% endblock %}

@@ -1,0 +1,154 @@
+{
+  "publication-review-small-site-owner": {
+    "schema": "quotability-review/1",
+    "source_id": "publication-review-small-site-owner",
+    "content_sha256": "11540bb39000ebb9251b10da5a3b37b8f920e262c4134e24b0ea68ac6fcb8908",
+    "profile_sha256": "094feca7025f40315b525c12ba1e3519df28f3d27e44128b8c1e837858809ae3",
+    "evidence_kind": "synthetic",
+    "instructions": "Fill two independent passes; null remains unknown. Claims need exact block/quote evidence. Synthetic reviewers are fixtures, not human review.",
+    "evidence_inventory": {
+      "blocks": [
+        {
+          "tag": "h1",
+          "summary": false,
+          "text": "How to review an article before you publish it",
+          "locator": "block-1"
+        },
+        {
+          "tag": "p",
+          "summary": false,
+          "text": "A useful editorial check starts with one question: can your intended reader use this article to finish a specific task?",
+          "locator": "block-2"
+        },
+        {
+          "tag": "h2",
+          "summary": false,
+          "text": "How do I check whether a heading is answered?",
+          "locator": "block-3"
+        },
+        {
+          "tag": "p",
+          "summary": false,
+          "text": "Read the heading and the first sentence beneath it as a pair. If the heading asks how to reset a password, the opening should tell the reader where to start the reset. A sentence about the importance of account security makes the reader keep looking.",
+          "locator": "block-4"
+        },
+        {
+          "tag": "h2",
+          "summary": false,
+          "text": "Which revision should I make first?",
+          "locator": "block-5"
+        },
+        {
+          "tag": "p",
+          "summary": false,
+          "text": "There are several things to consider at this stage. Look for the point where the reader has to guess what to do next. For example, replace “change your settings” with the name of the setting, where to find it, and what value to select.",
+          "locator": "block-6"
+        },
+        {
+          "tag": "h2",
+          "summary": false,
+          "text": "How can I tell whether the edit helped?",
+          "locator": "block-7"
+        },
+        {
+          "tag": "p",
+          "summary": false,
+          "text": "Give the revised passage to someone who has not seen it and ask them to perform the task using only those instructions. Record where they pause or ask a question. Use that observation to decide what to revise next.",
+          "locator": "block-8"
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "heading": "How do I check whether a heading is answered?",
+          "level": 2,
+          "heading_locator": "block-3",
+          "opening": "Read the heading and the first sentence beneath it as a pair.",
+          "opening_kind": "text",
+          "blocks": [
+            "block-4"
+          ],
+          "opening_locator": "block-4",
+          "opening_sha256": "57428a46d8955fca2694b19881b03d76ceaf3c4d024a676c670a66eba1a3ce50",
+          "opening_words": 12
+        },
+        {
+          "id": "section-2",
+          "heading": "Which revision should I make first?",
+          "level": 2,
+          "heading_locator": "block-5",
+          "opening": "There are several things to consider at this stage.",
+          "opening_kind": "text",
+          "blocks": [
+            "block-6"
+          ],
+          "opening_locator": "block-6",
+          "opening_sha256": "fa8c5fed28eba5cabef37483799b779c9a79983259a4ae09b00a1482847345d0",
+          "opening_words": 9
+        },
+        {
+          "id": "section-3",
+          "heading": "How can I tell whether the edit helped?",
+          "level": 2,
+          "heading_locator": "block-7",
+          "opening": "Give the revised passage to someone who has not seen it and ask them to perform the task using only those instructions.",
+          "opening_kind": "text",
+          "blocks": [
+            "block-8"
+          ],
+          "opening_locator": "block-8",
+          "opening_sha256": "fd6cc1d83c253952316c2c65d10413f4fda4a765f5b46e7ebc8bc5fc636e4bc7",
+          "opening_words": 22
+        }
+      ]
+    },
+    "passes": [
+      {
+        "evaluator_id": "",
+        "evaluator_version": "",
+        "pass_id": "",
+        "sections": {
+          "section-1": {
+            "opening_sha256": "57428a46d8955fca2694b19881b03d76ceaf3c4d024a676c670a66eba1a3ce50",
+            "answer_first": null,
+            "standalone_openings": null
+          },
+          "section-2": {
+            "opening_sha256": "fa8c5fed28eba5cabef37483799b779c9a79983259a4ae09b00a1482847345d0",
+            "answer_first": null,
+            "standalone_openings": null
+          },
+          "section-3": {
+            "opening_sha256": "fd6cc1d83c253952316c2c65d10413f4fda4a765f5b46e7ebc8bc5fc636e4bc7",
+            "answer_first": null,
+            "standalone_openings": null
+          }
+        }
+      },
+      {
+        "evaluator_id": "",
+        "evaluator_version": "",
+        "pass_id": "",
+        "sections": {
+          "section-1": {
+            "opening_sha256": "57428a46d8955fca2694b19881b03d76ceaf3c4d024a676c670a66eba1a3ce50",
+            "answer_first": null,
+            "standalone_openings": null
+          },
+          "section-2": {
+            "opening_sha256": "fa8c5fed28eba5cabef37483799b779c9a79983259a4ae09b00a1482847345d0",
+            "answer_first": null,
+            "standalone_openings": null
+          },
+          "section-3": {
+            "opening_sha256": "fd6cc1d83c253952316c2c65d10413f4fda4a765f5b46e7ebc8bc5fc636e4bc7",
+            "answer_first": null,
+            "standalone_openings": null
+          }
+        }
+      }
+    ],
+    "resolutions": [],
+    "claims": null
+  }
+}

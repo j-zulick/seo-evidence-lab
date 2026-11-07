@@ -1,0 +1,11 @@
+{% extends "evidence_base.html" %}
+{% block title %}Article walkthrough · SEO Evidence Lab{% endblock %}
+{% block content %}
+<header class="page-head"><p class="eyebrow">Walkthrough · small-site owner</p><h1>Review an article<br>before publication.</h1><p class="intro">Use the selected sample to explore findings and editorial review. It is an assistant-authored demonstration article.</p></header>
+<div class="grid">
+<section class="card"><h2>Try these tasks</h2><ol><li>Open the audit workspace and paste this article as HTML. Choose Content and AI/search-readiness.</li><li>Inspect a finding and switch the explanation level.</li><li>Choose Assess saved content to open the separate Bot-worthiness assessment.</li><li>Download a report, revise one opening, and compare saved assessments.</li></ol><div class="actions"><a class="button" href="/qa">Open audit workspace →</a><a href="/qa/walkthrough/library.json">Article library JSON</a></div></section>
+<section class="card pending"><h2>Human review is pending</h2><p>Two reviewers independently judge whether each section opening answers the heading and stands on its own. Each can answer yes, no, or unmeasured.</p><p>Record only observations actually made. The native template binds judgments to this article’s content and section hashes.</p><div class="actions"><a href="/qa/walkthrough/reviews.json">Blank review template</a></div><p class="small">Your walkthrough accept, limited-pilot, or hold decision is recorded separately from synthetic checks.</p></section>
+</div>
+<section class="section card article-body" aria-label="Selected article">{{article|safe}}</section>
+<details class="detail"><summary>Copy the supplied HTML for an audit</summary><pre>{{article}}</pre></details>
+{% endblock %}

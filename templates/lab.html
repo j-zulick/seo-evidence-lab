@@ -1,0 +1,28 @@
+{% extends "evidence_base.html" %}
+{% block title %}SEO Evidence Lab · Follow the change{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Search intelligence, with a paper trail</p>
+    <h1>See what changed.<br>Know what to trust.</h1>
+    <p class="intro">Follow a source discovery through the content edit, the audit finding, and the evidence behind it.</p>
+    <div class="actions"><a class="button" href="/qa/competitors">Explore the example →</a><a class="button secondary" href="/qa">Audit your content</a></div>
+    <p class="small">Local walkthrough · synthetic sources and search observations</p>
+  </div>
+  <aside class="card featured" aria-label="Example evidence trail">
+    <span class="label">Inside the walkthrough</span>
+    <div class="pipeline">
+      <div><span class="node" aria-hidden="true">↗</span><section><h3>A page is revised</h3><p class="small">A question heading replaces an unstructured opening.</p></section></div>
+      <div><span class="node" aria-hidden="true">✓</span><section><h3>The finding changes</h3><p class="small">Replay identifies the article edit as sufficient for the heading check to pass.</p></section></div>
+      <div><span class="node" aria-hidden="true">?</span><section><h3>Search impact stays uncertain</h3><p class="small">Both the edited page and comparison page gain visibility.</p></section></div>
+    </div>
+  </aside>
+</section>
+<section aria-labelledby="choose"><div class="section-head"><h2 id="choose">Pick up the evidence trail</h2><p>Each step is open to inspection.</p></div>
+<div class="grid three">
+  <article class="card"><span class="label">Discover</span><h3>Review emerging news</h3><p class="quiet">Inspect community leads and the sources that need corroboration.</p><div class="actions"><a href="/qa/community-news">Open news leads →</a></div></article>
+  <article class="card"><span class="label">Investigate</span><h3>Compare the actual change</h3><p class="quiet">See passages, versioned findings, and the counterfactual replay.</p><div class="actions"><a href="/qa/competitors">Open change analysis →</a></div></article>
+  <article class="card"><span class="label">Verify</span><h3>Inspect successes and misses</h3><p class="quiet">Review six evaluation cases and the retrieval query that failed.</p><div class="actions"><a href="/qa/evaluations">Open evaluation →</a></div></article>
+</div></section>
+<section class="section grid"><article class="card"><h2>Bring your own content</h2><p class="quiet">Run the five-scope audit or assess section openings with the separate Bot-worthiness review workflow.</p><div class="actions"><a href="/qa">Audit workspace</a><a href="/qa/botworthiness">Bot-worthiness</a><a href="/qa/walkthrough">Try the article walkthrough</a></div></article><article class="card"><h2>From news to guidance</h2><p class="quiet">The planned news-agent connection will bring discoveries into this evidence trail. The current inbox lets you triage a saved synthetic change for review.</p><div class="actions"><a href="/qa/source-inbox">Open source inbox</a><a href="/qa/evidence-search">Search passages</a></div></article></section>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>{% block title %}SEO Evidence Lab{% endblock %}</title>
+{% include 'evidence_style.html' %}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="header-inner">
+    <a class="brand" href="/qa/lab"><span class="brand-mark" aria-hidden="true">e.</span> SEO Evidence Lab</a>
+    <nav aria-label="Evidence lab">
+      <a href="/qa/lab" {% if active=='overview' %}aria-current="page"{% endif %}>Overview</a>
+      <a href="/qa/competitors" {% if active=='timeline' %}aria-current="page"{% endif %}>Change analysis</a>
+      <a href="/qa/evaluations" {% if active=='evaluation' %}aria-current="page"{% endif %}>Evaluation</a>
+      <a href="/qa/community-news" {% if active=='news' %}aria-current="page"{% endif %}>News leads</a>
+      <a href="/qa" class="nav-workspace">Audit workspace ↗</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+{% block content %}{% endblock %}
+<footer><span>Local evidence, open to inspection.</span><a href="/qa/evidence-search">Search passages</a><a href="/qa/botworthiness">Bot-worthiness</a><a href="/qa/sites">Uploaded sites</a></footer>
+</main>
+</body></html>

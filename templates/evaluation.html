@@ -1,0 +1,27 @@
+{% extends "evidence_base.html" %}
+{% block title %}Evaluation · SEO Evidence Lab{% endblock %}
+{% block content %}
+<header class="page-head"><p class="eyebrow">Evaluation · reproducible local fixtures</p><h1>Show the misses, too.</h1><p class="intro">Inspect the inputs, expected answers, and returned results. These cases test the walkthrough’s behavior and the evaluation harness.</p></header>
+<div class="grid three">
+<article class="card"><span class="label">Baseline evaluation</span><span class="metric">{{data.baseline_passed}} <small>/ {{data.experiment.cases|length}}</small></span><p class="quiet">Two intentionally wrong simulated judgments are caught.</p></article>
+<article class="card featured"><span class="label">Revised fixture responses</span><span class="metric">{{data.revised_passed}} <small>/ {{data.experiment.cases|length}}</small></span><p class="quiet">Updated canned answers match the six expected outcomes.</p></article>
+<article class="card"><span class="label">Evidence retrieval</span><span class="metric">{{data.retrieval_passed}} <small>/ {{data.retrieval.queries|length}}</small></span><p class="quiet">The lexical search misses a paraphrase with no matching terms.</p></article>
+</div>
+<div class="callout warning"><strong>Simulated judgments, visible assumptions.</strong><p>Three cases use saved Jev-style answers; three execute deterministic checks. The revised result shows the harness accepts corrected fixture responses. Human labels and real evaluator performance remain pending.</p></div>
+<section class="section"><div class="section-head"><h2>Six fixed cases</h2><a href="/qa/evaluations/report.json">Download current results</a></div>
+<div class="scroll" tabindex="0" role="region" aria-label="Evaluation results"><table><thead><tr><th scope="col">Case</th><th scope="col">Expected</th><th scope="col">Baseline</th><th scope="col">Revised</th></tr></thead><tbody>{% for case in data.experiment.cases %}<tr><th scope="row">{{case.id}}<span class="small" style="display:block">{{'Saved judge answer' if 'simulated' in case.grader else 'Deterministic check'}}</span></th><td>{{case.expected}}</td><td>{{case.baseline}}<br><span class="tag {{'good' if case.baseline_pass else 'bad'}}">{{'Pass' if case.baseline_pass else 'Fail'}}</span></td><td>{{case.revised}}<br><span class="tag {{'good' if case.revised_pass else 'bad'}}">{{'Pass' if case.revised_pass else 'Fail'}}</span></td></tr>{% endfor %}</tbody></table></div><p class="small">On narrow screens, scroll the table horizontally or focus it and use the arrow keys.</p>
+{% for case in data.experiment.cases %}<details class="detail"><summary>{{case.id}} · inspect input and grading</summary><pre>{{data.inputs[case.id]|tojson(indent=2)}}</pre><p class="small">{{case.grader}}</p></details>{% endfor %}
+<p class="small">Dataset {{data.experiment.dataset_version}} · rubric {{data.experiment.rubric}}</p><p class="hash">Dataset hash {{data.experiment.dataset_hash}}<br>Result hash {{data.experiment.result_hash}}</p></section>
+<section class="section"><div class="section-head"><h2>Retrieval, query by query</h2><p>Top three passages · frozen synthetic corpus</p></div>
+{% for query in data.retrieval.queries %}
+<article class="card lead{% if not query.all_expected_in_top_three %} deleted{% endif %}">
+<div class="section-head"><h3>“{{query.query}}”</h3><span class="tag {{'good' if query.all_expected_in_top_three else 'bad'}}">{{'Meets expectation' if query.all_expected_in_top_three else 'Miss'}}</span></div>
+<p class="small">{{query.kind|capitalize}} · expected {{query.expected|join(', ') if query.expected else 'no matching evidence'}} · median {{'%.4f'|format(query.median_ms)}} ms</p>
+{% for hit in query.results %}<p><strong>{{hit.id}}</strong> · {{hit.passage}}</p><p class="small">{{hit.source}} · version {{hit.version}}</p>{% else %}<p>No matching evidence.</p>{% endfor %}
+</article>{% endfor %}
+<p class="small">{{data.retrieval.definition}} The single paraphrase miss is retained in this release.</p>
+<p class="hash">Corpus hash {{data.retrieval.corpus_hash}}</p></section>
+<section class="section card"><h2>Reproduce the results</h2><p>From the repository after bootstrap, run these local commands.</p><pre>.venv/bin/python -m seo_qa.timeline_eval --output demo-output/evaluation
+.venv/bin/python -m seo_qa.evidence_search
+./setup/fixture_ci.sh</pre><p class="small">The benchmark runs in memory on page load. Its timing reflects this machine and warm query repetitions.</p></section>
+{% endblock %}

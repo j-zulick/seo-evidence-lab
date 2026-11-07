@@ -26,7 +26,7 @@ def install(app,env,csrf_check):
             with sqlite3.connect(database()) as db:
                 decisions=db.execute('SELECT action, recorded FROM decisions WHERE item=? ORDER BY rowid DESC LIMIT 20',(entry['key'],)).fetchall()
         from fastapi.responses import HTMLResponse
-        return HTMLResponse(env.get_template('source_inbox.html').render(entry=entry,decisions=decisions,csrf=request_csrf(app.state.csrf_token)))
+        return HTMLResponse(env.get_template('source_inbox.html').render(entry=entry,decisions=decisions,active="news",csrf=request_csrf(app.state.csrf_token)))
 
     @app.post('/qa/source-inbox')
     def decide(key:str=Form(...), action:str=Form(...), csrf_token:str=Form(...)):
