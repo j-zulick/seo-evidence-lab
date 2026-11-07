@@ -43,3 +43,6 @@ Run `./setup/fixture_ci.sh` after bootstrap. Browser verification uses installed
 
 ## Emerging news to reviewed guidance
 The next integration connects the user's custom SEO/LLM-visibility news agent and research/scraper pipeline to this evidence trail. The local demo includes a [community lead review](NEWS-INTELLIGENCE.md) page at `/qa/community-news`. It preserves the difference between an emerging report, a source awaiting inspection, and approved guidance. Live Reddit and connected news ingestion remain future work.
+
+## Origins
+The original project inspiration was Sweepr's documentation-drift workflow, later adapted into SEO release verification. Botworthy Index subsequently informed the separate local quotability methodology. [Attribution and references](ATTRIBUTION.txt).

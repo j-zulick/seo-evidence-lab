@@ -1,0 +1,7 @@
+Project origins
+Sweepr (https://sweepr-code.vercel.app) supplied the initial documentation-drift idea: verify documentation against a changing codebase through a GitHub/Notion workflow. Historical project records show that this concept evolved into SEO release verification.
+Creator project description: https://alexbbritton.com/
+
+Botworthy Index (https://botworthyindex.com/scoreboard) was a later reference for a separately implemented local content-quotability adaptation, identified in its methodology as public v3.0.4.
+
+These references identify product and methodology influences. They do not establish copied implementation, verified current vendor behavior or endorsement. Repository licensing is an owner decision.
