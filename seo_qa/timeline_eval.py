@@ -1,5 +1,6 @@
 """Run a versioned synthetic evaluation locally and export Langfuse dataset items."""
 import argparse
+import hashlib
 import json
 import sqlite3
 from pathlib import Path
@@ -8,10 +9,11 @@ from .competitor import ROOT, demo, digest, ingest, visibility
 DATA = ROOT/'fixtures/eval'
 
 
-def run(output):
-    output.mkdir(parents=True,exist_ok=True)
-    dataset = json.loads((DATA/'cases.json').read_text())
-    shadow = json.loads((DATA/'shadow.json').read_text())
+def evaluate():
+    dataset_bytes = (DATA/'cases.json').read_bytes()
+    shadow_bytes = (DATA/'shadow.json').read_bytes()
+    dataset = json.loads(dataset_bytes)
+    shadow = json.loads(shadow_bytes)
     results = []
     requests = []
     fixture = demo()
@@ -46,9 +48,32 @@ def run(output):
     items=[{'input':c['input'],'expectedOutput':c['expected'],'metadata':{'case_id':c['id'],'dataset_version':dataset['version'],'synthetic':True}} for c in dataset['cases']]
     report={'dataset_hash':digest(dataset),'dataset_version':dataset['version'],'rubric':'v1','cases':results,
             'human_labels':None,'live_calls':0,'units':0,'mode':'offline synthetic judge fixtures'}
-    for name,obj in [('jev-requests',requests),('langfuse-dataset-items',items),('experiment-comparison',report)]:
-        (output/(name+'.json')).write_text(json.dumps(obj,indent=2)+'\n')
-    return report
+    report['provenance'] = {
+        'schema': 'fixture-evaluation-provenance/v1',
+        'cases_sha256': hashlib.sha256(dataset_bytes).hexdigest(),
+        'shadow_sha256': hashlib.sha256(shadow_bytes).hexdigest(),
+        'evaluated_fixture_hash': digest(fixture),
+        'implementation_sha256': {
+            'seo_qa/timeline_eval.py': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            'seo_qa/competitor.py': hashlib.sha256((Path(__file__).parent/'competitor.py').read_bytes()).hexdigest(),
+        },
+        'result_hash_definition': 'competitor.digest of this complete report excluding result_hash',
+    }
+    report['result_hash'] = digest(report)
+    return {'report': report, 'requests': requests, 'items': items, 'dataset': dataset}
+
+
+def run(output):
+    output.mkdir(parents=True, exist_ok=True)
+    evaluation = evaluate()
+    artifacts = {
+        'jev-requests': evaluation['requests'],
+        'langfuse-dataset-items': evaluation['items'],
+        'experiment-comparison': evaluation['report'],
+    }
+    for name, obj in artifacts.items():
+        (output / (name + '.json')).write_text(json.dumps(obj, indent=2) + '\n')
+    return evaluation['report']
 
 
 if __name__=='__main__':
