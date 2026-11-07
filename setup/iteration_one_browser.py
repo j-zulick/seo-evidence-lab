@@ -60,6 +60,15 @@ def capture(out, record=False):
                     assert json.loads(page.inner_text('body'))['finding']=='miss'
                     report=ctx.request.get(base+'/qa/evaluations/report.json').json()
                     assert (report['baseline_passed'],report['revised_passed'],report['retrieval_passed'])==(4,6,5)
+                    page.goto(base+'/qa/evaluations')
+                    with page.expect_download() as download:
+                        page.get_by_role('link',name='Download a fresh run',exact=True).click()
+                    saved=out/'evaluation-downloaded.json'
+                    download.value.save_as(saved)
+                    assert json.loads(saved.read_text())['experiment']['result_hash']==report['experiment']['result_hash']
+                    page.goto(base+'/qa/walkthrough')
+                    expect(page.get_by_text('Human review is pending',exact=True)).to_be_visible()
+                    assert ctx.request.get(base+'/qa/walkthrough/library.json').json()['pages']
                     page.goto(base+'/qa/source-inbox')
                     expect(page.get_by_text('Pending review.',exact=True)).to_be_visible()
                     if record:

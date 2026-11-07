@@ -27,7 +27,10 @@ def test_navigation_and_empty_search(tmp_path):
 
 def test_scorecard_matches_underlying_results_and_exposes_failure(tmp_path):
     c = client(tmp_path)
-    report = c.get('/qa/evaluations/report.json').json()
+    response = c.get('/qa/evaluations/report.json')
+    assert response.headers['cache-control'] == 'no-store'
+    assert 'attachment;' in response.headers['content-disposition']
+    report = response.json()
     assert report['experiment'] == evaluate()['report']
     assert report['baseline_passed'] == 4
     assert report['revised_passed'] == 6

@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from .botworthiness.local_web import local_available
 from .competitor import demo, ROOT
 from .measurement import fixture_view
@@ -57,7 +57,10 @@ def install_routes(app, env):
 
     @app.get('/qa/evaluations/report.json')
     def evaluations_report():
-        return evaluation_data()
+        return JSONResponse(evaluation_data(), headers={
+            'Cache-Control': 'no-store',
+            'Content-Disposition': 'attachment; filename="evaluation-results.json"',
+        })
 
     @app.get('/qa/community-news', response_class=HTMLResponse)
     def community_news():
