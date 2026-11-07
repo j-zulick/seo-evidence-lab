@@ -1,9 +1,17 @@
 # SEO Evidence Lab
-Follow an emerging report to its source, inspect the page edit, and replay the finding that changed.
+Explain why an SEO finding changed, with the original passage, edited content, versioned inputs, and replay results open to inspection.
 
 ![Evidence lab overview](examples/overview.png)
 
 This local Python application combines an SEO audit workspace with an inspectable synthetic change-analysis demo. The planned connection to a custom SEO/LLM-visibility news agent and research/scraper pipeline makes discovery the start of the evidence trail.
+
+## What makes this project distinctive
+
+The example asks whether a finding changed because the article, guidance, scoring logic, or evidence availability changed. It pins those four inputs and replays their combinations. This explains a deterministic finding; it does not establish that a page edit caused a search-performance improvement.
+
+The evaluation screen exposes deliberately incorrect saved judgments and a retrieval paraphrase that misses its expected passage. The custom news/research bridge is the next milestone: move from a discovered claim to reviewed guidance, then identify affected findings. Saved-capture imports and the synthetic news journey work today; the live bridge is planned.
+
+[Five-minute walkthrough](docs/DEMO-WALKTHROUGH.md) · [Architecture](docs/ARCHITECTURE.md) · [Evaluation results](docs/EVALUATION.md) · [Engineering case study](docs/CASE-STUDY.md) · [Roadmap](docs/ROADMAP.md)
 
 ## Try it locally
 Use Python 3.12 with SQLite FTS5. Run the one-command walkthrough:
@@ -78,7 +86,7 @@ flowchart LR
 ## Engineering examples
 - Packaging refused a local app whose new imports were absent from the historical hosted allowlist.
 - Independent review caught request windows that contradicted the saved observations.
-- Community payloads now require explicit synthetic provenance and reject malformed/aliased source lists.
+- Community payloads require explicit synthetic provenance, reject malformed source lists, and return detached source-link lists.
 - Evaluation identity includes the simulated answers and executable source, so changing a canned answer changes the result identity.
 
 [News/research integration design](NEWS-INTELLIGENCE.md) · [Capabilities and limits](CAPABILITIES.md) · [Release notes](RELEASE-NOTES.md) · [Contributing](CONTRIBUTING.md)
@@ -86,4 +94,6 @@ flowchart LR
 ## Origins and publication
 Sweepr’s documentation-drift workflow supplied the originating concept; Botworthy Index later informed the separate local quotability adaptation. [Attribution](ATTRIBUTION.txt).
 
-Owner review, repository publication and license selection remain pending. See [license decision](LICENSE-DECISION.txt). Hosting, recurring collection and live rules remain paused. The demo uses zero live Ahrefs, model or evaluation calls.
+The owner has signed off on the local MVP and six advisory source decisions. Two independent editorial reviews and empirical walkthrough observations have not been supplied; owner signoff does not create those results. Repository publication and license selection remain pending. See [license decision](LICENSE-DECISION.txt) and [provenance](docs/PROVENANCE.md).
+
+A separately authorized protected static preview demonstrates saved fixture evidence; it does not host the dynamic local app. Original production remains paused. Recurring collection and live rules are disabled, with zero live Ahrefs, model or evaluation calls in the demonstrated workflow. Public source publication does not require resuming application hosting. See [security and operating scope](SECURITY.md).
