@@ -7,3 +7,8 @@ state/
 .playwright/
 .coverage
 *.sqlite*
+
+.hypothesis/
+demo-output/
+local-ui-checks/
+local-core-checks/
