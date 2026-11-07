@@ -17,7 +17,7 @@
         }
       ],
       "all_expected_in_top_three": true,
-      "median_ms": 0.0062085000000000005
+      "median_ms": 0.006916500000000001
     },
     {
       "kind": "exact",
@@ -35,7 +35,7 @@
         }
       ],
       "all_expected_in_top_three": true,
-      "median_ms": 0.006083
+      "median_ms": 0.006646
     },
     {
       "kind": "paraphrase",
@@ -53,7 +53,7 @@
         }
       ],
       "all_expected_in_top_three": true,
-      "median_ms": 0.0102915
+      "median_ms": 0.011354
     },
     {
       "kind": "paraphrase",
@@ -63,7 +63,7 @@
       ],
       "results": [],
       "all_expected_in_top_three": false,
-      "median_ms": 0.003708
+      "median_ms": 0.004
     },
     {
       "kind": "conflict",
@@ -89,7 +89,7 @@
         }
       ],
       "all_expected_in_top_three": true,
-      "median_ms": 0.009833
+      "median_ms": 0.0109585
     },
     {
       "kind": "missing",
@@ -97,7 +97,7 @@
       "expected": [],
       "results": [],
       "all_expected_in_top_three": true,
-      "median_ms": 0.0031045
+      "median_ms": 0.003416
     }
   ],
   "accuracy": 0.8333333333333334,

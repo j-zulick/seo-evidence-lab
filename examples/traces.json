@@ -1,32 +1,32 @@
 [
   {
     "stage": "comparison",
-    "duration_ms": 0.618,
+    "duration_ms": 0.664,
     "status": "UNSET"
   },
   {
     "stage": "import",
-    "duration_ms": 0.083,
+    "duration_ms": 0.089,
     "status": "UNSET"
   },
   {
     "stage": "import",
-    "duration_ms": 0.031,
+    "duration_ms": 0.034,
     "status": "ERROR"
   },
   {
     "stage": "retry",
-    "duration_ms": 0.023,
+    "duration_ms": 0.027,
     "status": "UNSET"
   },
   {
     "stage": "diff",
-    "duration_ms": 0.025,
+    "duration_ms": 0.028,
     "status": "UNSET"
   },
   {
     "stage": "replay",
-    "duration_ms": 0.037,
+    "duration_ms": 0.039,
     "status": "UNSET"
   }
 ]

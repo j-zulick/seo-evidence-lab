@@ -1,48 +1,89 @@
-# SEO QA evidence replay
-Compare two page captures, replay a versioned heading check, and inspect search visibility alongside the actual content change. This local demonstration uses synthetic publisher, article, performance, and competitor observations.
+# SEO Evidence Lab
+Follow an emerging report to its source, inspect the page edit, and replay the finding that changed.
 
-![Local competitor timeline](examples/timeline.png)
+![Evidence lab overview](examples/overview.png)
 
-## Run the fixture walkthrough
-With Python 3.12, a working SQLite build with FTS5, and a compatible wheel platform, run:
+This local Python application combines an SEO audit workspace with an inspectable synthetic change-analysis demo. The planned connection to a custom SEO/LLM-visibility news agent and research/scraper pipeline makes discovery the start of the evidence trail.
+
+## Try it locally
+Use Python 3.12 with SQLite FTS5. Run the one-command walkthrough:
 
 ```sh
 ./walkthrough.sh
 ```
 
-The first run installs pinned dependencies. Subsequent work reads local fixtures. See `demo-output/` for the comparison, source retrieval benchmark, local spans and evaluation results. To use the browser interface run `./run-local.command`, then open `/qa/competitors` at the printed loopback address. The source inbox accepts explicit local triage actions. Guidance publication and executable-rule activation require separate workflows.
+It installs the pinned local environment and writes reports to `demo-output/`. Choose the interpreter with `SEO_QA_BOOTSTRAP_PYTHON` if `python3.12` has a different name.
 
-[Watch the recorded local walkthrough](examples/walkthrough.webm) · [Retrieval measurements](examples/retrieval.json) · [Experiment comparison](examples/experiment-comparison.json)
+Then start the app:
 
-## What to inspect
-- **Capture history.** Four attempts produce two content versions. Repeated imports reuse the content hash. A timeout preserves the last good capture.
-- **Finding replay.** The fixture heading criterion changes from miss to pass when the article changes. The comparison enumerates counterfactual combinations of article, guidance, scoring and evidence. Unknown scoring versions produce an unresolved result. This implementation covers the supplied heading criterion.
-- **Visibility and first-party measurements.** Edited and comparison pages both gain top-ten keywords. The edit’s contribution to that gain is uncertain. The Search Console and CrUX examples retain scope and dates; missing measurements stay unknown.
-- **Retrieval.** SQLite FTS5 returns ranked passages, source version and content hashes. Five of six fixed queries meet the top-three expectation. A paraphrase without lexical overlap misses its intended passage. Latencies and individual outcomes are in the sample report.
-- **Evaluation and tooling.** Local dataset items and typed Jev request examples use simulated judgments. An actual stdio MCP server serves three read-only fixture tools. The browser, local OpenTelemetry exporter, property tests and CI command use disposable local data.
-- **Product workflows.** The audit workspace includes five SEO scopes, site uploads and comparisons, reports, local history and separate Bot-worthiness review/revision/export flows.
-
-```mermaid
-flowchart LR
-  A[Saved page captures] --> B[SQLite attempts and versions]
-  B --> C[Diff and audit replay]
-  C --> D[Local timeline]
-  E[Saved search observations] --> D
-  B --> F[Manual review inbox]
-  G[Versioned passages] --> H[FTS5 evidence retrieval]
-  C --> I[Read-only MCP]
-  C --> J[Fixture experiments and local traces]
+```sh
+./run-local.command
 ```
 
-## Verification
-Run `./setup/fixture_ci.sh` after bootstrap. Browser verification uses installed Chrome and `python setup/local_acceptance.py --output PATH` from the local virtual environment. The portfolio capture script supports `--record` when the Playwright FFmpeg helper is installed. The manually triggered CI workflow is provided for future repository use.
+Open the printed address and choose **Evidence lab**. The main journey starts at `/qa/lab`.
 
-**Failure case:** the earlier integrated app imported local-only modules that the historical hosted allowlist omitted. Packaging now refuses that composition before creating an archive. The fixture suite checks this boundary. The trace walkthrough deliberately requests a causal claim the timeline does not make; its failed assertion is captured locally for inspection.
+- **Change analysis** puts the original passage, edit, finding and counterfactual trials together.
+- **Evaluation** exposes the six-case results and the failed retrieval paraphrase.
+- **News leads** separates an emerging report from its primary-source review.
+- **Article walkthrough** uses the included publication-review article for a small-site owner. The editorial template remains blank.
 
-**Future integrations:** actual provider access, real source review, account isolation and hosted acceptance require separate evidence. The included demo uses zero live Ahrefs, model or evaluation calls. No schedule is installed.
+[Recorded walkthrough](examples/walkthrough.webm) · [Evaluation screen](examples/evaluation.png) · [Current experiment report](examples/experiment-comparison.json) · [Retrieval benchmark](examples/retrieval.json)
 
-## Emerging news to reviewed guidance
-The next integration connects the user's custom SEO/LLM-visibility news agent and research/scraper pipeline to this evidence trail. The local demo includes a [community lead review](NEWS-INTELLIGENCE.md) page at `/qa/community-news`. It preserves the difference between an emerging report, a source awaiting inspection, and approved guidance. Live Reddit and connected news ingestion remain future work.
+## Inspect a claim
+The edited synthetic page acquires a question heading. Replacing only the article makes the heading criterion pass. Updating only the guidance preserves the original finding. Both the edited page and comparison page gain synthetic top-ten keywords, so the edit’s search benefit remains uncertain.
 
-## Origins
-The original project inspiration was Sweepr's documentation-drift workflow, later adapted into SEO release verification. Botworthy Index subsequently informed the separate local quotability methodology. [Attribution and references](ATTRIBUTION.txt).
+![Passage and finding comparison](examples/timeline.png)
+
+The fixture replay covers a heading criterion. The broader five-scope audit and the separate Bot-worthiness assessment are available through the audit workspace. Old audits and edited-content assessments retain distinct identities.
+
+## Technology and implemented scope
+| Area | Local implementation |
+| --- | --- |
+| App | Python 3.12, FastAPI, Jinja2, responsive server-rendered pages |
+| Evidence | SQLite attempt/version storage, content hashes, immutable replay inputs |
+| Ingestion | Saved Firecrawl-shaped captures, Search Console and CrUX JSON imports, bounded synthetic subreddit observations |
+| Search | SQLite FTS5, passage/source/version hashes, frozen six-query benchmark |
+| Tools | Actual MCP stdio server with three read-only fixture tools |
+| Evaluation | Three deterministic cases plus three simulated Jev-style judgments, Langfuse dataset-item exports |
+| Observability | OpenTelemetry in-memory spans for comparison, import, failure, retry, diff and replay |
+| Verification | pytest, Hypothesis, Playwright/Chrome, browser traces, real restart and export checks |
+| Product | Five audit scopes, uploaded-site analysis, explanations, history, Bot-worthiness review/import/revision and exports |
+
+The evaluation’s baseline is 4/6; revised canned answers reach 6/6. Those results test the harness. Real model performance and human labels remain pending. Retrieval meets five of six expectations; “slow user reactions” misses its intended passage. Every result is inspectable by case. The evaluation JSON binds the cases, saved judgments and implementation hashes.
+
+## Reproduce verification
+```sh
+./setup/fixture_ci.sh
+.venv/bin/python setup/iteration_one_browser.py --output local-ui-checks
+.venv/bin/python setup/local_acceptance.py --output local-core-checks
+```
+
+Browser checks require installed Chrome. Optional `--record` on the UI script also requires the Playwright FFmpeg helper. Dependencies and browser artifacts remain outside source control.
+
+The fixture CI workflow is prepared for manual execution after repository publication. Remote CI and hosted provider acceptance are pending. The source bootstrap has been exercised in a fresh extracted folder on macOS with Python 3.12.
+
+## Architecture
+```mermaid
+flowchart LR
+  A[Saved captures and news leads] --> B[Attempts and content versions]
+  B --> C[Diff and heading replay]
+  C --> D[Evidence lab]
+  E[Saved search measurements] --> D
+  B --> F[Manual review inbox]
+  G[Versioned passages] --> H[FTS5 retrieval]
+  C --> I[Read-only MCP]
+  C --> J[Local evaluation and traces]
+```
+
+## Engineering examples
+- Packaging refused a local app whose new imports were absent from the historical hosted allowlist.
+- Independent review caught request windows that contradicted the saved observations.
+- Community payloads now require explicit synthetic provenance and reject malformed/aliased source lists.
+- Evaluation identity includes the simulated answers and executable source, so changing a canned answer changes the result identity.
+
+[News/research integration design](NEWS-INTELLIGENCE.md) · [Capabilities and limits](CAPABILITIES.md) · [Release notes](RELEASE-NOTES.md) · [Contributing](CONTRIBUTING.md)
+
+## Origins and publication
+Sweepr’s documentation-drift workflow supplied the originating concept; Botworthy Index later informed the separate local quotability adaptation. [Attribution](ATTRIBUTION.txt).
+
+Owner review, repository publication and license selection remain pending. See [license decision](LICENSE-DECISION.txt). Hosting, recurring collection and live rules remain paused. The demo uses zero live Ahrefs, model or evaluation calls.

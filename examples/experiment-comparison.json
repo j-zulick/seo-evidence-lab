@@ -61,5 +61,17 @@
   "human_labels": null,
   "live_calls": 0,
   "units": 0,
-  "mode": "offline synthetic judge fixtures"
+  "mode": "offline synthetic judge fixtures",
+  "provenance": {
+    "schema": "fixture-evaluation-provenance/v1",
+    "cases_sha256": "e0022628c7034ff3d2a03bc7cb1405fb4f9bd3ea50d741d02c55de9570868c7a",
+    "shadow_sha256": "67e40a5bfacf8cd6472a5dced952bc4f872cbc7f35c7657a6baeeef6ed968ef0",
+    "evaluated_fixture_hash": "eb8f49b06f37cdd7e98756f6b62558391f3c06de9893fa8f28f5b1e222970756",
+    "implementation_sha256": {
+      "seo_qa/timeline_eval.py": "22a5ff81f63061fa6ceaae1e35e328bece3e0af5f33c2a8426748c8b01865f7e",
+      "seo_qa/competitor.py": "3a2b03c2168ac48a1d2801be069f034784e7f2db23ea07647c70a7cbf1a10083"
+    },
+    "result_hash_definition": "competitor.digest of this complete report excluding result_hash"
+  },
+  "result_hash": "80059dde4725df5fd641c70d296798ac5f2ddea496a3a1601a8faea835d250d2"
 }
