@@ -94,6 +94,6 @@ flowchart LR
 ## Origins and publication
 Sweepr’s documentation-drift workflow supplied the originating concept; Botworthy Index later informed the separate local quotability adaptation. [Attribution](ATTRIBUTION.txt).
 
-The owner has signed off on the local MVP and six advisory source decisions. Two independent editorial reviews and empirical walkthrough observations have not been supplied; owner signoff does not create those results. Repository publication and license selection remain pending. See [license decision](LICENSE-DECISION.txt) and [provenance](docs/PROVENANCE.md).
+The owner has signed off on the local MVP and six advisory source decisions. Two independent editorial reviews and empirical walkthrough observations have not been supplied; owner signoff does not create those results. The public destination is `j-zulick/seo-evidence-lab`. MIT is recommended for project-owned code; license adoption and publication await the owner’s final approval. See [license decision](LICENSE-DECISION.txt), [provenance](docs/PROVENANCE.md), and [dependency notices](THIRD-PARTY-NOTICES.md).
 
 A separately authorized protected static preview demonstrates saved fixture evidence; it does not host the dynamic local app. Original production remains paused. Recurring collection and live rules are disabled, with zero live Ahrefs, model or evaluation calls in the demonstrated workflow. Public source publication does not require resuming application hosting. See [security and operating scope](SECURITY.md).

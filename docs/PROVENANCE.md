@@ -20,8 +20,14 @@ Development and review used Codex-assisted work and Hermes Management coordinati
 
 The custom SEO/LLM news agent and research/scraper are separate projects. This release includes saved-capture ingestion and synthetic news/review examples, not an accepted live bridge or a claim to own those providers' software.
 
-## Publication review
+## Publication review completed for the local source candidate
 
-Attribution does not itself establish copyright ownership, redistribution permission, or license compatibility. No code-originality or plagiarism certification has been performed. The owner must establish the rights needed to publish the inherited local baseline and any adapted material, retain required notices, and choose the project's license. Dependency metadata is a review aid, not proof of compatibility. [License decision](../LICENSE-DECISION.txt).
+The technical review traced all 183 files in the initial Git import to the preserved local source archive with exact byte matches. Later changes remain in the actual commit history. The inherited application is project-local source, rather than an imported Sweepr repository. Attribution records the originating idea and the later Botworthy methodology reference separately.
 
-The public demonstration uses synthetic observations and the supplied walkthrough article. Private captures, credentials, state databases, internal support receipts, and historical project archives are outside the intended public file set. Inspect all reachable Git history and media before the first push.
+The inspected source/assets did not reveal an identified vendor source-code import requiring a new upstream license notice. This is not proof of legal ownership or an exhaustive code-similarity audit. The current Sweepr and Botworthy implementations were not obtained for comparison, and the Botworthy site could not be retrieved during the November 8 review. The published weights/profile remain attributed as a local methodological adaptation rather than the official scorer.
+
+The review inventories 72 pinned dependencies and their installed license metadata, with no bundled dependency environment in the public archive. [Dependency notices](../THIRD-PARTY-NOTICES.md). Source templates use system fonts; no downloaded font files or third-party image library are included. The walkthrough article and synthetic fixture assets trace to the preserved project source history.
+
+The recommended license for project-owned code is MIT. It remains proposed until the owner's single final publication approval, which also confirms authority to publish the supplied project source and assets. Neither attribution nor a new MIT notice grants rights over someone else's material. [License decision](../LICENSE-DECISION.txt).
+
+The public candidate excludes private captures, credentials, state databases, environment folders, and internal support receipts. The release review also checks reachable Git history for token patterns and private paths and samples the committed media. These checks do not constitute a comprehensive secret scan or exhaustive frame-by-frame video review.
