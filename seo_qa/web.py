@@ -179,4 +179,6 @@ def create_app(store, inspector_module=None, imports_module=None, connection_run
     install_competitor_routes(app, env)
     from .source_inbox import install as install_inbox
     install_inbox(app,env,csrf_check)
+    from .community_web import install as install_community
+    install_community(app, env, csrf_check)
     return app

@@ -1,0 +1,15 @@
+{% extends "evidence_base.html" %}
+{% block title %}Retained leads · SEO Evidence Lab{% endblock %}
+{% block content %}
+<header class="page-head"><p class="eyebrow">Manual saved-input review</p><h1>Retained community leads</h1><p class="intro">Import an already permitted saved JSON export. Nothing is collected from the internet. Leads await primary-source review; importing them never approves guidance.</p></header>
+<p><a href="/qa/community-news">View the packaged synthetic example</a></p>
+<section class="card"><h2>Import saved leads</h2><form method="post" action="/qa/community-retained/import">
+<input type="hidden" name="csrf_token" value="{{csrf}}"><label for="saved_json" style="display:block;margin-bottom:8px">Saved community JSON (maximum 500 KB)</label><textarea style="display:block;width:100%;box-sizing:border-box;min-height:170px;padding:12px;border:1px solid #aab8af;border-radius:6px;font:inherit" id="saved_json" name="saved_json" rows="8" required></textarea><label for="retention_days" style="display:block;margin-top:16px;margin-bottom:8px">Retention days (1–90)</label><input id="retention_days" name="retention_days" type="number" min="1" max="90" value="30" required><p>Include explicit synthetic provenance and timezone-bearing dates. Expired or removed identities cannot be restored by another import. Private backup copies need separate deletion handling.</p><button type="submit">Import saved leads</button></form></section>
+{% for lead in data.leads %}<article class="card lead">
+{% if lead.status in ['removed','expired'] %}<span class="tag">{{lead.status}}</span><h2>Content cleared</h2><p class="quiet">Retained text has been removed. The identity remains to prevent reimport.</p>
+{% else %}<span class="tag">{{'Synthetic' if lead.synthetic else 'Saved external · declared provenance'}}</span><p class="label">{{lead.subreddit}}</p><h2>{{lead.title}}</h2><p>{{lead.status}} · guidance approval pending</p><p class="small">Created {{lead.created_at}}<br>Observed {{lead.observed_at}}</p>{% for link in lead.primary_sources %}<p class="break">{{link}}</p>{% endfor %}
+{% endif %}
+<p class="small">Identity: {{lead.id}}</p>
+{% if lead.status != 'removed' %}<form method="post" action="/qa/community-retained/remove"><input type="hidden" name="csrf_token" value="{{csrf}}"><input type="hidden" name="lead_id" value="{{lead.id}}"><button type="submit">Remove retained content</button></form>{% endif %}</article>
+{% else %}<p>No saved leads retained.</p>{% endfor %}
+{% endblock %}

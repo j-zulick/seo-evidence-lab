@@ -95,6 +95,16 @@ class CommunityStore:
                            (key, observed, expires, state, body))
         return self.snapshot(as_of=received_at)
 
+    def remove(self, identity, *, as_of):
+        """Scrub a known lead and retain a sticky removal tombstone."""
+        if not isinstance(identity, str) or not identity or len(identity) > 100:
+            raise ValueError('Invalid retained identity')
+        observed = _time(as_of).isoformat()
+        body = json.dumps({'id': identity, 'status': 'removed', 'text_retained': False}, sort_keys=True, separators=(',', ':'))
+        with closing(self._connect()) as db, db:
+            changed = db.execute("UPDATE community_leads SET state='removed',body=?,observed_at=? WHERE id=?", (body, observed, identity)).rowcount
+        return bool(changed)
+
     @staticmethod
     def _expire(db, now):
         for row in db.execute("SELECT id FROM community_leads WHERE state='active' AND expires_at <= ?", (now.isoformat(),)).fetchall():
