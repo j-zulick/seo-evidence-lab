@@ -42,9 +42,17 @@ class SelectedDataset:
             if passage['id'] in ids:
                 raise ValueError('Duplicate passage identity')
             ids.add(passage['id'])
-        self.payload = deepcopy(payload)
-        self.sha256 = expected_sha256
+        self._payload = deepcopy(payload)
+        self._sha256 = expected_sha256
         self._audits = audits
+
+    @property
+    def payload(self):
+        return deepcopy(self._payload)
+
+    @property
+    def sha256(self):
+        return self._sha256
 
     @classmethod
     def from_file(cls, path, expected_sha256):
@@ -63,7 +71,7 @@ class SelectedDataset:
         return {'dataset_sha256': self.sha256, 'comparison': compare(old, new)}
 
     def search(self, query):
-        db = index(self.payload)
+        db = index(self._payload)
         try:
             return {'dataset_sha256': self.sha256, 'retrieval_version': VERSION,
                     'results': expanded_search(db, query),

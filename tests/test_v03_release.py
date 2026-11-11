@@ -115,3 +115,17 @@ def test_selected_dataset_stdio_roundtrip(tmp_path):
 
     asyncio.run(exercise())
     assert path.read_bytes() == original_bytes
+
+
+def test_selected_snapshot_is_detached_from_exposed_payload():
+    payload = dataset()
+    selected = SelectedDataset(payload, digest(payload))
+    original_hash = selected.sha256
+    original_results = selected.search('reactions')
+    selected.payload['passages'][0]['text'] = 'replacement content'
+    payload['passages'][0]['text'] = 'replacement input'
+    assert selected.search('reactions') == original_results
+    assert digest(selected.payload) == original_hash
+    assert not selected.search('replacement')['results']
+    with pytest.raises(AttributeError):
+        selected.sha256 = '0' * 64
