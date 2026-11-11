@@ -8,6 +8,9 @@ from .timeline_eval import evaluate
 
 
 def install_routes(app, env):
+    from .news_bridge_web import install
+    install(app, env)
+
     def snapshot():
         if not local_available(app):
             raise HTTPException(404)

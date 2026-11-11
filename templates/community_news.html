@@ -7,5 +7,5 @@
 {% if lead.status=='removed' %}<span class="tag">Removed</span><h2 style="margin-top:12px">Content cleared</h2><p class="quiet">The observation’s text is withheld from this view.</p>
 {% else %}<span class="label">{{lead.subreddit}}</span><h2>{{lead.title}}</h2><p><span class="tag warn">{{lead.status}}</span></p><p class="small">Created {{lead.created_at}}<br>Observed {{lead.observed_at}}</p>{% for link in lead.primary_sources %}<div class="actions"><a href="{{link}}">Inspect linked primary source ↗</a></div><p class="small break">{{link}}</p>{% endfor %}{% endif %}
 </article>{% endfor %}
-<div class="callout"><strong>Discovery → corroboration → guidance</strong><p>The planned news-agent and research connection will feed this workflow. These packaged leads are synthetic; live Reddit collection requires provider approval.</p></div>
+<div class="callout"><strong>Discovery → corroboration → guidance</strong><p>Import saved news-agent exports into a separate local inbox. These packaged leads remain synthetic; no live Reddit collection is enabled.</p><a href="/qa/news-imports">Open saved news inbox →</a></div>
 {% endblock %}

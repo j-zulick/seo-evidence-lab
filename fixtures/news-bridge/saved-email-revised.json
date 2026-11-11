@@ -1,0 +1,10 @@
+{
+  "to": "synthetic-demo@example.invalid",
+  "subject": "Synthetic SEO news export",
+  "payload": {
+    "mime_type": "text/html",
+    "body": {
+      "content": "<h1>Synthetic digest</h1><h2>SEO</h2><p><a href=\"https://publisher.example/guide\">Reviewing an article before publication</a></p><p>Demo publisher | Published: 2026-11-02; time not stated</p><p>The revised synthetic excerpt asks reviewers to retain the original passage and explain the edit. No existing audit changes automatically.</p><h2>LLM visibility</h2><p><a href=\"https://publisher.example/evidence\">Retain evidence for content changes</a></p><p>Demo publisher | Published: 2026-11-02</p><p>Save source versions and distinguish an observation from an approved rule.</p>"
+    }
+  }
+}
