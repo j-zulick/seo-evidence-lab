@@ -1,10 +1,11 @@
 # SEO Evidence Lab
 
-Local v0.3 preparation adds opt-in replay criteria, lexical retrieval expansion,
+This cumulative offline candidate includes v0.3 replay criteria, lexical retrieval expansion,
 and a selected-dataset read-only MCP server. See [candidate instructions and
 verified limits](docs/V03-PREPARATION.md). The browser walkthrough below preserves
 the existing v0.1 baseline; publication and hosting are separate steps.
 
+[Latest release: v0.1.0](https://github.com/j-zulick/seo-evidence-lab/releases/tag/v0.1.0) · [Verified public CI](https://github.com/j-zulick/seo-evidence-lab/actions/runs/42966824812)
 Explain why an SEO finding changed, with the original passage, edited content, versioned inputs, and replay results open to inspection.
 
 ![Evidence lab overview](examples/overview.png)
@@ -74,7 +75,7 @@ The evaluation’s baseline is 4/6; revised canned answers reach 6/6. Those resu
 
 Browser checks require installed Chrome. Optional `--record` on the UI script also requires the Playwright FFmpeg helper. Dependencies and browser artifacts remain outside source control.
 
-The fixture CI workflow is prepared for manual execution after repository publication. Remote CI and hosted provider acceptance are pending. The source bootstrap has been exercised in a fresh extracted folder on macOS with Python 3.12.
+The manual fixture CI workflow passed on the exact v0.1.0 release commit in [public GitHub Actions](https://github.com/j-zulick/seo-evidence-lab/actions/runs/42966824812). Hosted provider acceptance remains pending. The source bootstrap has been exercised in a fresh extracted folder on macOS with Python 3.12.
 
 ## Architecture
 ```mermaid
