@@ -1,4 +1,10 @@
 # SEO Evidence Lab
+
+Local v0.3 preparation adds opt-in replay criteria, lexical retrieval expansion,
+and a selected-dataset read-only MCP server. See [candidate instructions and
+verified limits](docs/V03-PREPARATION.md). The browser walkthrough below preserves
+the existing v0.1 baseline; publication and hosting are separate steps.
+
 Explain why an SEO finding changed, with the original passage, edited content, versioned inputs, and replay results open to inspection.
 
 ![Evidence lab overview](examples/overview.png)

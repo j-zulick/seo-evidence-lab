@@ -1,0 +1,76 @@
+{
+  "schema": "seo-evidence-dataset/v1",
+  "label": "Synthetic v0.3 example",
+  "audits": [
+    {
+      "id": "971bd5e40a32d0e069cc2f9c7a5cdb6ce3851022a8e2588dc6195004e44312e3",
+      "inputs": {
+        "article": "Original passage",
+        "guidance": {
+          "rule": "required_phrase",
+          "phrase": "evidence trail"
+        },
+        "scoring": "content/v1",
+        "evidence": true
+      },
+      "pins": {
+        "article": "9d46da611898f8df8bb1caf6948540a299528946e440d665d262f89ed506097d",
+        "guidance": "88b42b379035e54f95f8a65ef46d9ac613224c14868f42508a7d1c27e0436db7",
+        "scoring": "5fa2cd9a2a38a227fdaea7a2e5b64ffd79f37e3ef89fe1d1cb0515485d35733f",
+        "evidence": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+      },
+      "finding": "miss"
+    },
+    {
+      "id": "c875764c14b43933d47ceedae42f8ad666c5508a70f04d97116e49031f48aca6",
+      "inputs": {
+        "article": "Retain the evidence trail.",
+        "guidance": {
+          "rule": "required_phrase",
+          "phrase": "evidence trail"
+        },
+        "scoring": "content/v1",
+        "evidence": true
+      },
+      "pins": {
+        "article": "d3da40c0a315a33cade437015b994904084429e6ccbbd4f2aafded2e8286c83f",
+        "guidance": "88b42b379035e54f95f8a65ef46d9ac613224c14868f42508a7d1c27e0436db7",
+        "scoring": "5fa2cd9a2a38a227fdaea7a2e5b64ffd79f37e3ef89fe1d1cb0515485d35733f",
+        "evidence": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+      },
+      "finding": "pass"
+    }
+  ],
+  "passages": [
+    {
+      "id": "robots",
+      "source": "fixture:publisher-a",
+      "version": "1",
+      "text": "A noindex directive requests exclusion from the index."
+    },
+    {
+      "id": "canonical",
+      "source": "fixture:publisher-b",
+      "version": "2",
+      "text": "A canonical link declares the preferred URL among duplicate pages."
+    },
+    {
+      "id": "speed",
+      "source": "fixture:publisher-c",
+      "version": "1",
+      "text": "INP describes interaction responsiveness."
+    },
+    {
+      "id": "conflict-a",
+      "source": "fixture:publisher-a",
+      "version": "1",
+      "text": "Fixture guidance permits indexing the archive."
+    },
+    {
+      "id": "conflict-b",
+      "source": "fixture:publisher-b",
+      "version": "1",
+      "text": "Fixture guidance prohibits indexing the archive."
+    }
+  ]
+}

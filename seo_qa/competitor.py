@@ -67,11 +67,31 @@ def ingest(conn, item):
 def finding(inputs):
     if not isinstance(inputs,dict) or set(inputs)!=set(FACTORS) or not isinstance(inputs['article'],str) or len(inputs['article'])>200_000 or not isinstance(inputs['guidance'],dict) or type(inputs['evidence']) is not bool:
         raise ValueError('Expected bounded article, guidance, scoring and boolean evidence')
-    if inputs['scoring'] not in ('heading/v1','heading/v2'):
+    if inputs['scoring'] not in ('heading/v1','heading/v2','content/v1'):
         return 'unresolved'
     if not inputs['evidence']:
         return 'unmeasured'
     rule = inputs['guidance'].get('rule')
+    if inputs['scoring'] == 'content/v1':
+        # These bounded Markdown criteria inspect supplied text only.
+        if rule == 'required_phrase':
+            phrase = inputs['guidance'].get('phrase')
+            if not isinstance(phrase, str) or not phrase.strip() or len(phrase) > 512:
+                return 'unresolved'
+            return 'pass' if phrase.casefold() in inputs['article'].casefold() else 'miss'
+        if rule == 'descriptive_link':
+            links = re.findall(r'(?<!!)\[([^]\n]+)\]\((https?://[^\s)]+)\)', inputs['article'])
+            generic = {'here', 'click here', 'read more', 'more', 'link'}
+            for label, target in links:
+                try:
+                    uri = urlsplit(target)
+                    usable = bool(uri.hostname) and not uri.username and not uri.password
+                except ValueError:
+                    usable = False
+                if label.strip() and label.strip().casefold() not in generic and usable:
+                    return 'pass'
+            return 'miss'
+        return 'unresolved'
     if rule not in ('heading_present', 'question_heading'):
         return 'unresolved'
     heads = re.findall(r'^#{1,6}\s+(.+)$',inputs['article'],re.M)
