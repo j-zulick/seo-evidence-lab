@@ -1,0 +1,7 @@
+Offline release preparation — November 11, 2026
+
+This cumulative source candidate extends published v0.1.0. It is not a created version tag or accepted hosted deployment. Exact checks, source identities, package hashes and open gates live in the separate release-readiness output kit.
+
+Included: broader deterministic replay; expanded lexical retrieval evaluation; explicitly selected read-only MCP datasets with immutable pins; scoped saved-provider measurements; community retention/removal/recovery; saved GEO and single-page SEO diagnostics; manual local saved-diagnostic validation without raw artifact display. Final inclusion of news bridge, community interface and client-operation controls is established by the final source manifest and individual commits.
+
+Limitations: synthetic agent-labeled checks do not establish field accuracy or search/citation changes. Caller provenance does not authenticate input permissions or genuine review. Real provider results, independent reviews, connected Jev/Langfuse evidence, hosted isolation/recovery and client acceptance need actual evidence. Hosting remains paused, spending/live model/Ahrefs calls zero, unattended work disabled.
