@@ -31,3 +31,16 @@ def test_saved_provider_example_has_functional_web_path(tmp_path):
     assert 'Normalized diagnostic candidate' in response.text
     assert 'provider-normalizer/v1' in response.text
     assert not list(tmp_path.glob('*.json'))
+
+
+def test_saved_seo_example_has_functional_web_path(tmp_path):
+    from pathlib import Path
+    import json
+    root = Path(__file__).resolve().parents[1]/'examples/saved-seo-engine'
+    c = TestClient(create_app(Store(tmp_path/'seo.sqlite')))
+    token = re.search(r'name="csrf_token" value="([^"]+)"', c.get('/qa/saved-diagnostics').text).group(1)
+    bindings = json.dumps({'envelope': json.loads((root/'broken.envelope.json').read_text()), 'page_text': (root/'broken.html').read_text()})
+    response = c.post('/qa/saved-diagnostics', data=dict(engine='seo', content=(root/'broken.raw.json').read_text(), bindings=bindings, csrf_token=token))
+    assert response.status_code == 200
+    assert 'Normalized diagnostic candidate' in response.text
+    assert 'raw_result' not in response.text

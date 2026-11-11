@@ -7,6 +7,7 @@ from .botworthiness.local_web import local_available
 from .request_context import request_csrf
 from .external_diagnostics import import_saved
 from .provider_contract import normalize
+from .saved_seo_adapter import admit
 
 
 def install(app, env):
@@ -35,6 +36,10 @@ def install(app, env):
                 result = import_saved(content.encode(), **json.loads(bindings))
                 # Raw upstream output may contain private local paths/content.
                 result.pop('raw_output')
+            elif engine == 'seo':
+                context = json.loads(bindings)
+                result = admit(content.encode(), context['envelope'], context['page_text'])
+                result.pop('raw_result')
             elif engine == 'provider':
                 result = normalize(json.loads(content))
             else:
