@@ -173,6 +173,8 @@ def create_app(store, inspector_module=None, imports_module=None, connection_run
     install_site_workspace(app,env,csrf_check)
     from .botworthiness.local_web import install_routes as install_botworthiness
     install_botworthiness(app, env, csrf_check)
+    from .diagnostic_web import install as install_diagnostic_routes
+    install_diagnostic_routes(app, env)
     from .competitor_web import install_routes as install_competitor_routes
     install_competitor_routes(app, env)
     from .source_inbox import install as install_inbox
