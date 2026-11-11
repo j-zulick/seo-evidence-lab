@@ -1,0 +1,27 @@
+{
+  "adapter_schema": "saved-seo/v1",
+  "engine": {
+    "repo": "seo-skills/seo-audit-skill",
+    "commit": "fac4b75f2059b6d74bb05a865fe1b0ca5de3ba66",
+    "package": "7.0.0",
+    "schema": 2,
+    "scoring": 4
+  },
+  "operation": {
+    "id": "synthetic-repaired",
+    "status": "completed",
+    "captured_at": "2026-11-11T00:00:00-05:00"
+  },
+  "input": {
+    "requested_url": "https://fixture.example/article",
+    "final_url": "https://fixture.example/article",
+    "scope": "single_page",
+    "rendering": "raw",
+    "page_sha256": "751bab9ce9f983c54bfbbdd933087fb6a159bdb3449716a2d46d7030f9bd132c",
+    "page_version": "751bab9ce9f983c54bfbbdd933087fb6a159bdb3449716a2d46d7030f9bd132c"
+  },
+  "provenance": {
+    "raw_sha256": "b4a027a355663f4122ed43285b0e0f5d36bb867fa5cad4600cc331d1d97e5f16",
+    "evidence_kind": "synthetic"
+  }
+}

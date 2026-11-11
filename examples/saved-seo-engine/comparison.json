@@ -1,0 +1,54 @@
+{
+  "compatible": true,
+  "changes": [
+    {
+      "rule_id": "core-description-present",
+      "change": "changed",
+      "before": "pass",
+      "after": "fail",
+      "before_locator": {
+        "raw_sha256": "cb64f10bbff274e8e93440df450ca0914d20c8c7596fb84f26466679812a62b2",
+        "rule_id": "core-description-present",
+        "page_version": "b2c0e77801f0fd41c95144f96ea8b38e50249e9bf050027bcc0792dac683a6b8"
+      },
+      "after_locator": {
+        "raw_sha256": "b4a027a355663f4122ed43285b0e0f5d36bb867fa5cad4600cc331d1d97e5f16",
+        "rule_id": "core-description-present",
+        "page_version": "751bab9ce9f983c54bfbbdd933087fb6a159bdb3449716a2d46d7030f9bd132c"
+      }
+    },
+    {
+      "rule_id": "core-title-present",
+      "change": "changed",
+      "before": "fail",
+      "after": "pass",
+      "before_locator": {
+        "raw_sha256": "cb64f10bbff274e8e93440df450ca0914d20c8c7596fb84f26466679812a62b2",
+        "rule_id": "core-title-present",
+        "page_version": "b2c0e77801f0fd41c95144f96ea8b38e50249e9bf050027bcc0792dac683a6b8"
+      },
+      "after_locator": {
+        "raw_sha256": "b4a027a355663f4122ed43285b0e0f5d36bb867fa5cad4600cc331d1d97e5f16",
+        "rule_id": "core-title-present",
+        "page_version": "751bab9ce9f983c54bfbbdd933087fb6a159bdb3449716a2d46d7030f9bd132c"
+      }
+    }
+  ],
+  "aggregate_cancellation_allowed": false,
+  "waived_caps": {
+    "before": [
+      {
+        "ceiling": 0,
+        "id": "robots",
+        "reason": "Synthetic staging waiver retained"
+      }
+    ],
+    "after": [
+      {
+        "ceiling": 0,
+        "id": "robots",
+        "reason": "Synthetic staging waiver retained"
+      }
+    ]
+  }
+}
