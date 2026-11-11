@@ -1,0 +1,11 @@
+# Saved GEO intake candidate
+
+This additive offline adapter imports saved output from `seo-skills/geo-audit-skill` schema 1 (audited package 1.2.1). It does not execute upstream software, fetch sites, activate guidance, or change existing audits. Upstream raw JSON is preserved under its own namespace. No upstream implementation code is copied.
+
+Use `python -m seo_qa.external_diagnostics artifact.json bindings.json > admitted.json`. Bindings contain `expected_raw_sha256`, `source_sha256`, exact 40-character `engine_commit`, `evidence_kind` (`synthetic` or `saved_external`) and `scope` with `target`, `rendering` (`raw`, `rendered`, `mixed`) and `page_set_sha256`. Hash exact original bytes and a stable sorted page identity manifest. Retain capture, manifest and original artifact privately. Bindings are caller assertions; intake does not authenticate origin or permission.
+
+Intake rejects unsupported schemas, failed operations, detached hashes, missing versions/timezones, duplicate rules, nonfinite/out-of-range values and inconsistent denominators. Unavailable signals remain null. Scores without measured checks are refused. Rules retain JSON pointer locators into unchanged upstream output; quote offset admission is unsupported.
+
+`compare(before, after)` accepts admitted records only. It refuses changed engine/scoring/data/normalizer identity, rendering/target/page scope, evidence kind, coverage, rule set or maxima. Advisory and explicitly not-applicable signals remain outside the declared score denominator, matching the retained engine source. Rule changes survive even when net scores cancel. Differences do not establish causes of rankings or AI citations. Source content hashes may change; measurement scope must match.
+
+Release: apply the additive patch to the selected integration candidate, run targeted and combined regression, retain source/package hashes, then select/tag the integrated commit. Baseline v0.1 remains independent. This is CLI/Python only; UI, TypeScript SEO-engine intake, live browser audits and reviewer acceptance remain unverified. Hosting stays paused; spending/live calls remain zero. Raw upstream output can contain private local paths and must be reviewed before public export.
