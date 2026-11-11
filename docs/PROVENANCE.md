@@ -28,6 +28,6 @@ The inspected source/assets did not reveal an identified vendor source-code impo
 
 The review inventories 72 pinned dependencies and their installed license metadata, with no bundled dependency environment in the public archive. [Dependency notices](../THIRD-PARTY-NOTICES.md). Source templates use system fonts; no downloaded font files or third-party image library are included. The walkthrough article and synthetic fixture assets trace to the preserved project source history.
 
-The recommended license for project-owned code is MIT. It remains proposed until the owner's single final publication approval, which also confirms authority to publish the supplied project source and assets. Neither attribution nor a new MIT notice grants rights over someone else's material. [License decision](../LICENSE-DECISION.txt).
+The owner adopted MIT for project-owned code in the final publication approval, which also confirms authority to publish the supplied project source and assets. Neither attribution nor a new MIT notice grants rights over someone else's material. [License decision](../LICENSE-DECISION.txt).
 
 The public candidate excludes private captures, credentials, state databases, environment folders, and internal support receipts. The release review also checks reachable Git history for token patterns and private paths and samples the committed media. These checks do not constitute a comprehensive secret scan or exhaustive frame-by-frame video review.

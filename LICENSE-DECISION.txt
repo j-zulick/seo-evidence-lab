@@ -1,9 +1,7 @@
-Recommended project license: MIT, for project-owned source and documentation.
-Destination confirmed by owner: public j-zulick/seo-evidence-lab.
-Status: recommendation prepared; adoption and publication await the requested one final approval. No root LICENSE has been assigned in this candidate.
+Project license: MIT, adopted under the owner final publication approval.
+Copyright notice: Copyright (c) 2026 j-zulick.
+Public destination: j-zulick/seo-evidence-lab.
 
-MIT permits reuse, modification and commercial use with preservation of copyright and license notices. It fits a portfolio intended to be inspected, run and adapted. Dependency licenses and required notices remain separate; see THIRD-PARTY-NOTICES.md and docs/PROVENANCE.md. A future distribution that bundles dependencies/browsers needs its own notice review.
+The root LICENSE applies to project-owned source and documentation. Dependencies retain their own licenses and required notices; see THIRD-PARTY-NOTICES.md. The MIT notice does not relicense provider data, third-party methodologies, trademarks or external source material. Future bundled environment/browser distributions need their own notice review.
 
-The final approval includes authority to publish the supplied local project code/assets. No complete code-originality certification or legal ownership adjudication is claimed. The exact proposed MIT text is retained in the private final-approval packet and will be added only under approval.
-
-License reference: https://choosealicense.com/licenses/mit/
+Source lineage and review limits are recorded in docs/PROVENANCE.md. Owner publication approval confirms authority to publish the supplied project source/assets; no complete originality certification or legal adjudication is implied.

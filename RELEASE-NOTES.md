@@ -1,6 +1,6 @@
 # SEO Evidence Lab v0.1.0 release draft
 
-Status: prepared locally; no public release or tag created. Proposed first release: a reproducible local application and synthetic evidence walkthrough.
+First local portfolio release: a reproducible local application and synthetic evidence walkthrough.
 
 ## Included
 
@@ -22,4 +22,4 @@ Hermes Management support supplied independently reproduced community-provenance
 
 The news agent/service bridge, live Reddit collection, live Ahrefs/GSC/CrUX acceptance, and genuine Jev/Langfuse service acceptance are future milestones. Canned evaluation improvement is not evidence of model improvement. Search-performance observations do not establish causation. Independent editorial votes remain unmeasured despite owner local-MVP signoff.
 
-The existing protected static preview is read-only. Original production remains paused; the dynamic local app is not publicly deployed. No new hosting or provider calls are needed to publish this source release. The owner selected public `j-zulick/seo-evidence-lab`; MIT is recommended, with license adoption and public publication awaiting one final approval. [Capabilities](CAPABILITIES.md) · [Roadmap](docs/ROADMAP.md) · [Provenance](docs/PROVENANCE.md).
+The existing protected static preview is read-only. Original production remains paused; the dynamic local app is not publicly deployed. No new hosting or provider calls are needed to publish this source release. The owner selected public `j-zulick/seo-evidence-lab`; MIT covers project-owned code under the owner’s final publication approval; dependency licenses remain separate. [Capabilities](CAPABILITIES.md) · [Roadmap](docs/ROADMAP.md) · [Provenance](docs/PROVENANCE.md).
