@@ -11,12 +11,12 @@ from .saved_seo_adapter import admit
 
 
 def install(app, env):
-    def page(result=None, error=None, status=200):
+    def page(result=None, error=None, status=200, engine='geo'):
         if not local_available(app):
             raise HTTPException(404)
         return HTMLResponse(env.get_template('saved_diagnostics.html').render(
             result=json.dumps(result, indent=2, allow_nan=False) if result else None,
-            error=error, active='overview', csrf=request_csrf(app.state.csrf_token)),
+            error=error, selected_engine=engine, active='overview', csrf=request_csrf(app.state.csrf_token)),
             status_code=status, headers={'Cache-Control': 'no-store'})
 
     @app.get('/qa/saved-diagnostics')
@@ -30,7 +30,7 @@ def install(app, env):
         if not hmac.compare_digest(csrf_token, request_csrf(app.state.csrf_token)):
             raise HTTPException(403, 'Invalid form token')
         if len(content.encode()) > 2_000_000 or len(bindings.encode()) > 16_000:
-            return page(error='Saved input exceeds limit.', status=400)
+            return page(error='Saved input exceeds limit.', status=400, engine=engine)
         try:
             if engine == 'geo':
                 result = import_saved(content.encode(), **json.loads(bindings))
@@ -45,5 +45,5 @@ def install(app, env):
             else:
                 raise ValueError('Unknown saved diagnostic engine')
         except (ValueError, TypeError, KeyError, AttributeError, OverflowError) as exc:
-            return page(error='Input refused: ' + str(exc), status=400)
-        return page(result=result)
+            return page(error='Input refused: ' + str(exc), status=400, engine=engine)
+        return page(result=result, engine=engine)

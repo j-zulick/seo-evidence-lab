@@ -20,7 +20,7 @@ def install(app, env):
 
     def page(error=None, status=200):
         return HTMLResponse(env.get_template('news_imports.html').render(
-            data=report(database()), error=error, active='news', csrf=request_csrf(app.state.csrf_token)), status_code=status)
+            data=report(database()), error=error, active='news', csrf=request_csrf(app.state.csrf_token)), status_code=status, headers={'Cache-Control': 'no-store'})
 
     @app.get('/qa/news-imports')
     def inbox():
@@ -37,7 +37,7 @@ def install(app, env):
             import_saved(path, content.encode(), format, synthetic == 'true')
         except ValueError as exc:
             return page(str(exc), 400)
-        return RedirectResponse('/qa/news-imports', status_code=303)
+        return RedirectResponse('/qa/news-imports', status_code=303, headers={'Cache-Control': 'no-store'})
 
     @app.post('/qa/news-imports/decision')
     def decision(version_id: str = Form(...), action: str = Form(...), actor: str = Form(...),
@@ -48,7 +48,7 @@ def install(app, env):
             decide(path, version_id, action, actor, note)
         except ValueError as exc:
             return page(str(exc), 400)
-        return RedirectResponse('/qa/news-imports', status_code=303)
+        return RedirectResponse('/qa/news-imports', status_code=303, headers={'Cache-Control': 'no-store'})
 
     @app.get('/qa/news-imports/report.json')
     def download():

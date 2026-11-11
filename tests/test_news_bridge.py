@@ -128,3 +128,13 @@ def test_cli_reads_back_persisted_export_in_another_process(tmp_path):
     assert first.returncode == 0, first.stderr
     second = subprocess.run([sys.executable, '-m', 'seo_qa.news_bridge', 'report', '--db', str(db)], capture_output=True, text=True)
     assert second.returncode == 0 and len(json.loads(second.stdout)['items']) == 1
+
+
+def test_news_html_is_not_cacheable(tmp_path):
+    from fastapi.testclient import TestClient
+    from seo_qa.web import create_app
+    from seo_qa.store import Store
+    c = TestClient(create_app(Store(tmp_path/'no-cache.sqlite')))
+    response = c.get('/qa/news-imports')
+    assert response.status_code == 200
+    assert response.headers['cache-control'] == 'no-store'

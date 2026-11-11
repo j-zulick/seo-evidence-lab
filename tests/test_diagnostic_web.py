@@ -30,6 +30,7 @@ def test_saved_provider_example_has_functional_web_path(tmp_path):
     assert response.status_code == 200
     assert 'Normalized diagnostic candidate' in response.text
     assert 'provider-normalizer/v1' in response.text
+    assert 'value="provider" selected' in response.text
     assert not list(tmp_path.glob('*.json'))
 
 

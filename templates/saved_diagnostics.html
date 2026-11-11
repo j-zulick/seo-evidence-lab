@@ -3,8 +3,9 @@
 {% block content %}
 <header class="page-head"><h1>Validate saved diagnostics</h1><p>Paste a saved export to inspect its identity, coverage and findings. Nothing is fetched or retained. Diagnostic candidates do not approve guidance or establish search outcomes.</p></header>
 {% if error %}<p role="alert">{{error}}</p>{% endif %}
-<form method="post"><input type="hidden" name="csrf_token" value="{{csrf}}">
-<label for="engine">Saved export kind</label><select id="engine" name="engine"><option value="geo">GEO saved audit</option><option value="seo">SEO saved single-page audit</option><option value="provider">Provider saved-export envelope</option></select>
+<style>.diagnostic-form label{display:block;margin:.9rem 0 .35rem}.diagnostic-form textarea,.diagnostic-form select{display:block;box-sizing:border-box;width:100%;max-width:100%;padding:.65rem;font:inherit}.diagnostic-form button{margin-top:1rem}</style>
+<form class="diagnostic-form" method="post"><input type="hidden" name="csrf_token" value="{{csrf}}">
+<label for="engine">Saved export kind</label><select id="engine" name="engine"><option value="geo" {% if selected_engine == "geo" %}selected{% endif %}>GEO saved audit</option><option value="seo" {% if selected_engine == "seo" %}selected{% endif %}>SEO saved single-page audit</option><option value="provider" {% if selected_engine == "provider" %}selected{% endif %}>Provider saved-export envelope</option></select>
 <label for="content">Original JSON artifact (2 MB maximum)</label><textarea id="content" name="content" required rows="10"></textarea>
 <label for="bindings">GEO bindings or SEO envelope/page_text JSON (16 KB maximum; unused for providers)</label><textarea id="bindings" name="bindings" rows="4">{}</textarea>
 <button>Validate locally</button></form>
