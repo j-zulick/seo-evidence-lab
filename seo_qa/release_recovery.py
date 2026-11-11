@@ -15,7 +15,7 @@ import shutil
 import sqlite3
 import tempfile
 
-DATABASE_ROLES = frozenset({'audit', 'knowledge', 'review', 'capture', 'operations', 'rules'})
+DATABASE_ROLES = frozenset({'audit', 'knowledge', 'review', 'capture', 'operations', 'rules', 'community'})
 EVIDENCE_ROLES = frozenset({'audit_evidence', 'capture_evidence'})
 FORMAT = 'seo-qa-local-recovery-v1'
 
