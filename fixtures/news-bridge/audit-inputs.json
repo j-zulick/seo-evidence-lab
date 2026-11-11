@@ -1,0 +1,6 @@
+{
+  "article": "# Reset settings\nOpen settings and select Reset.",
+  "guidance": {"rule": "heading_present"},
+  "scoring": "heading/v1",
+  "evidence": true
+}

@@ -198,10 +198,12 @@ def database(path):
     db.execute('PRAGMA foreign_keys=ON')
     db.executescript('''
         CREATE TABLE IF NOT EXISTS news_imports(id TEXT PRIMARY KEY, format TEXT, imported_at TEXT, synthetic INTEGER);
+        CREATE TABLE IF NOT EXISTS news_import_provenance(import_id TEXT PRIMARY KEY REFERENCES news_imports(id), export_hash TEXT);
         CREATE TABLE IF NOT EXISTS news_versions(id TEXT PRIMARY KEY, story_id TEXT, record TEXT);
         CREATE TABLE IF NOT EXISTS news_observations(import_id TEXT REFERENCES news_imports(id), version_id TEXT REFERENCES news_versions(id), PRIMARY KEY(import_id,version_id));
         CREATE TABLE IF NOT EXISTS news_attempts(id INTEGER PRIMARY KEY, export_hash TEXT, status TEXT, recorded_at TEXT);
         CREATE TABLE IF NOT EXISTS news_decisions(id INTEGER PRIMARY KEY, version_id TEXT REFERENCES news_versions(id), action TEXT, actor TEXT, note TEXT, recorded_at TEXT);
+        CREATE TABLE IF NOT EXISTS news_proposals(id TEXT PRIMARY KEY, version_id TEXT REFERENCES news_versions(id), record TEXT);
     ''')
     try:
         with db:
@@ -234,6 +236,7 @@ def import_saved(path, raw, format='digest-email', synthetic=False):
     with database(path) as db:
         duplicate = db.execute('SELECT 1 FROM news_imports WHERE id=?', (key,)).fetchone() is not None
         db.execute('INSERT OR IGNORE INTO news_imports VALUES(?,?,?,?)', (key, format, now, synthetic))
+        db.execute('INSERT OR IGNORE INTO news_import_provenance VALUES(?,?)', (key, export_hash))
         for row in rows:
             db.execute('INSERT OR IGNORE INTO news_versions VALUES(?,?,?)', (row['version_id'], row['story_id'], json.dumps(row, ensure_ascii=False)))
             db.execute('INSERT OR IGNORE INTO news_observations VALUES(?,?)', (key, row['version_id']))
@@ -273,13 +276,56 @@ def decide(path, version_id, action, actor, note):
                    (version_id, action, actor.strip(), note, datetime.now(timezone.utc).isoformat()))
 
 
+def propose(path, version_id, audit_inputs, rule, actor, reason):
+    """Pin a caller-proposed guidance change and replay; never activate it."""
+    from .competitor import audit, compare
+    if rule not in {'heading_present', 'question_heading'}:
+        raise ValueError('Only implemented heading rules can be proposed')
+    if not isinstance(actor, str) or not actor.strip() or len(actor) > 100:
+        raise ValueError('Expected bounded declared proposal author')
+    if not isinstance(reason, str) or not reason.strip() or len(reason) > 2000:
+        raise ValueError('Expected an explicit source-to-rule mapping reason')
+    # Canonical copying avoids retaining aliases to caller-owned mutable inputs.
+    before = json.loads(json.dumps(audit_inputs, allow_nan=False))
+    baseline = audit(before)
+    after = before | {'guidance': {'rule': rule}}
+    replay = compare(before, after)
+    with database(path) as db:
+        row = db.execute('SELECT record FROM news_versions WHERE id=?', (version_id,)).fetchone()
+        if row is None:
+            raise ValueError('Unknown saved news version')
+        source = json.loads(row['record'])
+        provenance = [dict(x) for x in db.execute('''SELECT p.import_id,p.export_hash
+            FROM news_import_provenance p JOIN news_observations o ON o.import_id=p.import_id
+            WHERE o.version_id=? ORDER BY p.import_id''', (version_id,))]
+        if not provenance:
+            raise ValueError('Reimport the original export to bind its source hash before proposing')
+        record = {'schema': 'news-guidance-proposal/v1', 'news_version_id': version_id,
+                  'story_id': source['story_id'], 'source_url': source['url'],
+                  'source_kind': source['source_kind'], 'synthetic': source['synthetic'],
+                  'import_provenance': provenance, 'audit_id': baseline['id'],
+                  'audit_pins': baseline['pins'], 'proposed_guidance': after['guidance'],
+                  'proposed_guidance_hash': digest(after['guidance']), 'replay': replay,
+                  'declared_author': actor.strip(), 'mapping_reason': reason,
+                  'status': 'proposed_unreviewed', 'human_approval': None,
+                  'active': False, 'source_truth_verified': False, 'network_calls': 0}
+        record['id'] = digest(record)
+        db.execute('INSERT OR IGNORE INTO news_proposals VALUES(?,?,?)', (record['id'], version_id, json.dumps(record)))
+    return record
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('action', choices=['import', 'report'])
+    p.add_argument('action', choices=['import', 'report', 'propose'])
     p.add_argument('--db', type=Path, required=True)
     p.add_argument('--input', type=Path)
     p.add_argument('--format', choices=['digest-email', 'normalized'], default='digest-email')
     p.add_argument('--synthetic', action='store_true')
+    p.add_argument('--version-id')
+    p.add_argument('--audit-inputs', type=Path)
+    p.add_argument('--rule', choices=['heading_present', 'question_heading'])
+    p.add_argument('--actor')
+    p.add_argument('--reason')
     args = p.parse_args()
     if args.action == 'import':
         if args.input is None:
@@ -287,6 +333,14 @@ def main():
         with args.input.open('rb') as f:
             raw = f.read(MAX_BYTES + 1)
         result = import_saved(args.db, raw, args.format, args.synthetic)
+    elif args.action == 'propose':
+        if not all([args.version_id, args.audit_inputs, args.rule, args.actor, args.reason]):
+            p.error('propose requires --version-id, --audit-inputs, --rule, --actor and --reason')
+        with args.audit_inputs.open('rb') as f:
+            content = f.read(MAX_BYTES + 1)
+        if len(content) > MAX_BYTES:
+            p.error('Audit input file exceeds 2 MB')
+        result = propose(args.db, args.version_id, json.loads(content), args.rule, args.actor, args.reason)
     else:
         result = report(args.db)
     print(json.dumps(result, indent=2, ensure_ascii=False))

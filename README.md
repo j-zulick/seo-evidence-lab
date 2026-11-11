@@ -10,15 +10,15 @@ Explain why an SEO finding changed, with the original passage, edited content, v
 
 ![Evidence lab overview](examples/overview.png)
 
-This local Python application combines an SEO audit workspace with an inspectable synthetic change-analysis demo. The planned connection to a custom SEO/LLM-visibility news agent and research/scraper pipeline makes discovery the start of the evidence trail.
+This local Python application combines an SEO audit workspace with an inspectable synthetic change-analysis demo. The **v0.2 development branch** adds a saved news-agent export inbox and source-bound guidance-impact proposals. The stable v0.1.0 release remains unchanged. [Reproduce the saved-news bridge](docs/SAVED-NEWS-BRIDGE.md). Live collection and approved-guidance activation remain future work.
 
 ## What makes this project distinctive
 
 The example asks whether a finding changed because the article, guidance, scoring logic, or evidence availability changed. It pins those four inputs and replays their combinations. This explains a deterministic finding; it does not establish that a page edit caused a search-performance improvement.
 
-The evaluation screen exposes deliberately incorrect saved judgments and a retrieval paraphrase that misses its expected passage. The custom news/research bridge is the next milestone: move from a discovered claim to reviewed guidance, then identify affected findings. Saved-capture imports and the synthetic news journey work today; the live bridge is planned.
+The evaluation screen exposes deliberately incorrect saved judgments and a retrieval paraphrase that misses its expected passage. The saved-news bridge retains source versions and prepares explicitly unapproved impact proposals. The next acceptance milestone is genuine source corroboration followed by reviewed guidance publication; no source excerpt or software proposal activates a rule automatically.
 
-[Five-minute walkthrough](docs/DEMO-WALKTHROUGH.md) · [Architecture](docs/ARCHITECTURE.md) · [Evaluation results](docs/EVALUATION.md) · [Engineering case study](docs/CASE-STUDY.md) · [Roadmap](docs/ROADMAP.md)
+[Five-minute walkthrough](docs/DEMO-WALKTHROUGH.md) · [Architecture](docs/ARCHITECTURE.md) · [Evaluation results](docs/EVALUATION.md) · [Engineering case study](docs/CASE-STUDY.md) · [Roadmap](docs/ROADMAP.md) · [Portfolio review and two-minute demo](docs/PORTFOLIO.md)
 
 ## Try it locally
 Use Python 3.12 with SQLite FTS5. Run the one-command walkthrough:

@@ -20,7 +20,8 @@ def install(app, env):
 
     def page(error=None, status=200):
         return HTMLResponse(env.get_template('news_imports.html').render(
-            data=report(database()), error=error, active='news', csrf=request_csrf(app.state.csrf_token)), status_code=status, headers={'Cache-Control': 'no-store'})
+            data=report(database()), error=error, active='news', csrf=request_csrf(app.state.csrf_token)),
+            status_code=status, headers={'Cache-Control': 'no-store'})
 
     @app.get('/qa/news-imports')
     def inbox():

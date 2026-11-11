@@ -8,7 +8,7 @@
 | Replay | Heading fixture and factor combinations | Additional deterministic criteria and real original inputs |
 | Search observations | Exact-page synthetic competitor timeline and saved GSC/CrUX normalization | Authorized real data and provider acceptance |
 | Community news | Synthetic leads, source links, corroboration states and removal display | Approved Reddit access and complete retention/deletion workflow |
-| Source inbox | Explicit local triage and retained history; six owner advisory decisions recorded separately | Real news-feed integration and reviewed guidance publication |
+| Source inbox | Local saved-email/normalized imports, version/attempt history, private-header minimization, triage and source-bound inactive replay proposals; six historical owner advisory decisions remain separate | Live feed, real source corroboration, approved immutable guidance publication and active affected-audit integration |
 | Content review | Selected small-site-owner article, native blank template, full Bot-worthiness review flow; owner local-MVP signoff | Two independent human reviews remain unmeasured |
 | MCP | Real local stdio connection, typed read-only fixture tools and unknown-ID refusal | Dataset-aware tools and networked access scope |
 | Tracing/recovery | Local OTel, injected failure/retry and restart/export recovery | Managed hosted recovery |

@@ -19,7 +19,7 @@
 <details><summary>Version identity and local triage</summary><p class="small break">Story {{item.story_id}}<br>Version {{item.version_id}}</p>
 {% if item.decision %}<p>{{item.decision.action}} · declared by {{item.decision.actor}} · {{item.decision.recorded_at}}</p><p>{{item.decision.note}}</p>{% else %}<p>Awaiting review. Guidance remains unapproved.</p>{% endif %}
 <form method="post" action="/qa/news-imports/decision"><input type="hidden" name="csrf_token" value="{{csrf}}"><input type="hidden" name="version_id" value="{{item.version_id}}">
-<label>Action <select name="action"><option value="accept_for_review">Accept for investigation</option><option value="defer">Defer</option><option value="reject">Reject</option></select></label>
+<label for="action-{{item.version_id}}">Action</label><select id="action-{{item.version_id}}" name="action"><option value="accept_for_review">Accept for investigation</option><option value="defer">Defer</option><option value="reject">Reject</option></select>
 <label>Declared reviewer <input name="actor" maxlength="100" required></label><label>Evidence note <textarea name="note" maxlength="2000" required></textarea></label><button type="submit">Record local triage</button></form><p class="quiet">This records a supplied declaration, not identity verification or an independent editorial vote. No action here publishes guidance or changes existing audit pins.</p></details></article>
 {% else %}<section class="card"><h2>No saved observations yet</h2><p>Import your saved news-agent export above. The packaged community examples remain separate.</p></section>{% endfor %}
 </div>

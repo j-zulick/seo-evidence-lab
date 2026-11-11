@@ -2,9 +2,9 @@
 The intended product differentiator is a custom SEO and LLM-visibility news workflow that turns discoveries into reviewable, versioned guidance and explains which audit findings change.
 
 ## Present implementation
-The local app imports saved page captures, compares versions and replays a heading criterion. Community-news fixtures show how a subreddit post becomes a lead, a linked publisher document becomes a source to inspect, and a removed observation loses its displayed content. The current view reads synthetic packaged observations. Provider authentication, a connected news-agent feed, real subreddit capture and unattended collection require separate work.
+The local app imports saved page captures, compares versions and replays a heading criterion. Community-news fixtures show how a subreddit post becomes a lead, a linked publisher document becomes a source to inspect, and a removed observation loses its displayed content. The community view still reads synthetic packaged observations. The separate saved-news inbox accepts actual saved digest exports through a bounded local adapter and can prepare source-bound, inactive guidance-impact proposals. Provider authentication, live collection, real subreddit capture and approved guidance activation require separate work. [Saved bridge contract](docs/SAVED-NEWS-BRIDGE.md).
 
-The user's existing news workflow and web-research/scraper projects are separate systems. Their handoff documents preserve source lists, deduplication and coverage requirements. This repository's demo does not establish an accepted live bridge.
+The user's existing news workflow and web-research/scraper projects are separate systems. Their handoff documents preserve source lists, deduplication and coverage requirements. The saved-export adapter was exercised against the existing local email-export shape; this does not establish live source truth or an accepted news-to-approved-guidance bridge.
 
 ## Integration contract to build next
 1. Normalize incoming news observations with source URL, origin (publisher/community), publication time when known, observation time, topic and source-content hash.

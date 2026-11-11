@@ -108,9 +108,12 @@ def test_local_ui_csrf_escape_download_and_hosted_boundary(tmp_path):
     client = TestClient(create_app(Store(tmp_path/'audit.sqlite')))
     page = client.get('/qa/news-imports')
     assert page.status_code == 200 and 'No saved observations yet' in page.text
+    assert page.headers['cache-control'] == 'no-store'
     token = re.search(r'name="csrf_token" value="([^"]+)"', page.text)[1]
     assert client.post('/qa/news-imports', data={'content': '{}', 'csrf_token': 'wrong'}).status_code == 403
-    response = client.post('/qa/news-imports', data={'content': json.dumps(email(title='&lt;img src=x onerror=alert(1)&gt;')), 'synthetic': 'true', 'csrf_token': token})
+    redirect = client.post('/qa/news-imports', data={'content': json.dumps(email(title='&lt;img src=x onerror=alert(1)&gt;')), 'synthetic': 'true', 'csrf_token': token}, follow_redirects=False)
+    assert redirect.status_code == 303 and redirect.headers['cache-control'] == 'no-store'
+    response = client.get(redirect.headers['location'])
     assert response.status_code == 200 and '&lt;img src=x onerror=alert(1)&gt;' in response.text
     assert '<img src=x' not in response.text
     result = client.get('/qa/news-imports/report.json')
@@ -138,3 +141,39 @@ def test_news_html_is_not_cacheable(tmp_path):
     response = c.get('/qa/news-imports')
     assert response.status_code == 200
     assert response.headers['cache-control'] == 'no-store'
+
+def test_proposal_binds_source_exports_and_replay_without_activation(tmp_path):
+    from seo_qa.news_bridge import propose
+    from seo_qa.competitor import audit
+    db = tmp_path/'news.sqlite'
+    receipt = import_saved(db, raw(email()), synthetic=True)
+    version = report(db)['items'][0]['version_id']
+    inputs = {'article':'# Reset settings\nOpen settings.', 'guidance':{'rule':'heading_present'},
+              'scoring':'heading/v1', 'evidence':True}
+    original = deepcopy(inputs)
+    proposal = propose(db, version, inputs, 'question_heading', 'Synthetic software author',
+                       'Synthetic source-to-rule mapping for proposal-only replay.')
+    assert inputs == original
+    assert proposal['audit_id'] == audit(inputs)['id'] and proposal['audit_pins'] == audit(inputs)['pins']
+    assert proposal['import_provenance'] == [{'import_id':receipt['import_id'], 'export_hash':receipt['export_hash']}]
+    assert proposal['replay']['before']['finding'] == 'pass'
+    assert proposal['replay']['after']['finding'] == 'miss'
+    assert proposal['human_approval'] is None and not proposal['active'] and not proposal['source_truth_verified']
+    again = propose(db, version, inputs, 'question_heading', 'Synthetic software author',
+                    'Synthetic source-to-rule mapping for proposal-only replay.')
+    assert again == proposal
+    with sqlite3.connect(db) as conn:
+        assert conn.execute('SELECT COUNT(*) FROM news_proposals').fetchone()[0] == 1
+    assert report(db)['items'][0]['decision'] is None
+
+
+@pytest.mark.parametrize('invalid', ['unknown_version','unsupported_rule','missing_reason'])
+def test_proposals_refuse_unknown_source_or_unexplained_mapping(tmp_path, invalid):
+    from seo_qa.news_bridge import propose
+    db = tmp_path/'news.sqlite'; import_saved(db, raw(email()), synthetic=True)
+    version = report(db)['items'][0]['version_id']
+    inputs = {'article':'# Heading', 'guidance':{'rule':'heading_present'}, 'scoring':'heading/v1', 'evidence':True}
+    with pytest.raises(ValueError):
+        propose(db, 'unknown' if invalid=='unknown_version' else version, inputs,
+                'unsupported' if invalid=='unsupported_rule' else 'question_heading',
+                'Synthetic author', '' if invalid=='missing_reason' else 'Explicit mapping')
