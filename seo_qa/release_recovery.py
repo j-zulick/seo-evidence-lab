@@ -15,7 +15,7 @@ import shutil
 import sqlite3
 import tempfile
 
-DATABASE_ROLES = frozenset({'audit', 'knowledge', 'review', 'capture', 'operations', 'rules', 'community'})
+DATABASE_ROLES = frozenset({'audit', 'knowledge', 'review', 'capture', 'operations', 'rules', 'community', 'clientops'})
 EVIDENCE_ROLES = frozenset({'audit_evidence', 'capture_evidence'})
 FORMAT = 'seo-qa-local-recovery-v1'
 
@@ -75,6 +75,24 @@ def _staging(destination):
         finally:
             if temporary.exists():
                 shutil.rmtree(temporary)
+
+
+def _validate_clientops(stage):
+    """Refuse unsettled manual jobs; export is never admission or replay."""
+    path = stage / 'databases/clientops.sqlite'
+    if not path.exists():
+        return
+    with closing(sqlite3.connect(path.as_uri() + '?mode=ro&immutable=1', uri=True)) as db:
+        if db.execute("SELECT count(*) FROM client_jobs WHERE state NOT IN ('complete','failed','cancelled')").fetchone()[0]:
+            raise ValueError('Settle client operations before recovery export')
+        if db.execute('SELECT count(*) FROM client_job_guards').fetchone()[0]:
+            raise ValueError('Client executor settlement capabilities excluded')
+        for workspace, budget, spent, reserved in db.execute('SELECT id,budget_units,spent_units,reserved_units FROM workspaces'):
+            actual = db.execute('SELECT COALESCE(SUM(actual_units),0) FROM client_jobs WHERE workspace=?', (workspace,)).fetchone()[0]
+            if reserved != 0 or spent != actual or not 0 <= spent <= budget:
+                raise ValueError('Client operations budget ledger inconsistent')
+        if db.execute('SELECT count(*) FROM client_jobs WHERE actual_units IS NULL OR actual_units < 0 OR actual_units > reserved_units').fetchone()[0]:
+            raise ValueError('Client operations settlement inconsistent')
 
 
 def _validate_audit(stage):
@@ -151,6 +169,7 @@ def export_state(databases, evidence, destination, *, writers_stopped=False):
                     shutil.copyfile(path, target / relative)
                 else:
                     raise ValueError('Special evidence file is forbidden')
+        _validate_clientops(stage)
         _validate_audit(stage)
         files = {}
         for path in stage.rglob('*'):
@@ -205,6 +224,7 @@ def verify_bundle(source):
         with closing(sqlite3.connect(path.as_uri() + '?mode=ro&immutable=1', uri=True)) as db:
             if db.execute('PRAGMA integrity_check').fetchall() != [('ok',)] or db.execute('PRAGMA foreign_key_check').fetchall():
                 raise ValueError('Restored database integrity failure')
+    _validate_clientops(source)
     _validate_audit(source)
     return manifest
 
