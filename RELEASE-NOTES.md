@@ -1,4 +1,4 @@
-# SEO Evidence Lab v0.1.0 release draft
+# SEO Evidence Lab v0.1.0
 
 First local portfolio release: a reproducible local application and synthetic evidence walkthrough.
 
