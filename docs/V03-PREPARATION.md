@@ -82,3 +82,20 @@ new version. The existing three-tool fixture server remains compatible.
 
 The release source ZIP excludes generated state, local environments, credentials,
 and this workspace's private historical receipts.
+
+## Independent labeling harness (prepared, labels pending)
+
+The v0.3 retrieval claim needs labels from a person who did not design the
+alias map. The harness only prepares and scores; it never labels.
+
+```sh
+.venv/bin/python -m seo_qa.labeling sheet --out labels-reviewer-a.csv
+# A person fills `relevant` (1/0) for every passage of each query they judge,
+# sets `labeler` and `labeler_kind=human-independent`, and may add own queries.
+.venv/bin/python -m seo_qa.labeling score labels-reviewer-a.csv [labels-reviewer-b.csv]
+```
+
+The report shows baseline vs lexical expansion per query (`fixed`, `regressed`,
+`both_pass`, `both_miss`), a labels hash, and Cohen's kappa for two sheets.
+`independent` is true only when every sheet declares `human-independent`;
+otherwise the report says it is not an independent evaluation.
