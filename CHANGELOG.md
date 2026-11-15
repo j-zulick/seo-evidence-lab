@@ -1,5 +1,6 @@
 # v0.2.1 groundwork (local, unreleased)
 - Added approved, immutable, chained guidance releases from reviewed news proposals, plus affected-audit replay. See docs/SAVED-NEWS-BRIDGE.md.
+
 # Iteration 2 groundwork (local, unreleased)
 - Added an explicit multi-account allowlist (`SEO_MEMBER_ACCOUNT_IDS`); unset keeps single-owner behavior.
 - Browser sign-in, session rows and storage roots now follow the verified account; cookie and token accounts must agree.
