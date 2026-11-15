@@ -1,3 +1,8 @@
+# Iteration 2 groundwork (local, unreleased)
+- Added an explicit multi-account allowlist (`SEO_MEMBER_ACCOUNT_IDS`); unset keeps single-owner behavior.
+- Browser sign-in, session rows and storage roots now follow the verified account; cookie and token accounts must agree.
+- Added second-account isolation tests and a route inventory that fails on any unclassified production route. See docs/MULTI-ACCOUNT.md.
+
 # Local successor changes
 - Added an offline FTS5 passage index and fixed retrieval benchmark.
 - Added local OpenTelemetry spans, injected fetch failure/retry, property tests and portable fixture CI.

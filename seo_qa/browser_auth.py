@@ -1,4 +1,8 @@
-"""Owner-only browser sign-in with durable, revocable cross-instance sessions.
+"""Allowlisted browser sign-in with durable, revocable cross-instance sessions.
+
+By default only the configured owner may sign in. SEO_MEMBER_ACCOUNT_IDS can
+explicitly allow additional accounts (see accounts.AccountPolicy); every
+principal carries its own verified account id and per-account storage.
 
 Signed cookies carry a short-lived access token, never a refresh token. They are
 transported only in Secure/HttpOnly/SameSite cookies. The backend verifies the
@@ -42,6 +46,12 @@ class BrowserSettings:
     signing_key: str = field(repr=False)
     owner_id: str
     session_ttl: int = 3600
+    member_ids: tuple = ()
+
+    @property
+    def account_ids(self):
+        from .accounts import AccountPolicy
+        return AccountPolicy(self.owner_id, tuple(self.member_ids)).account_ids
 
     @classmethod
     def from_environ(cls, environ=None):
@@ -56,7 +66,12 @@ class BrowserSettings:
             raise BrowserAuthError('Browser owner/session configuration is invalid') from None
         if not 60 <= ttl <= 3600:
             raise BrowserAuthError('Browser session lifetime must be 60–3600 seconds')
-        return cls(key, owner, ttl)
+        from .accounts import AccountPolicy, AccountPolicyError
+        try:
+            policy = AccountPolicy.from_environ(values)
+        except AccountPolicyError:
+            raise BrowserAuthError('Browser account configuration is invalid') from None
+        return cls(key, owner, ttl, policy.member_ids)
 
 
 @dataclass(frozen=True)
@@ -79,6 +94,8 @@ def _decode(value):
 class BrowserAuth:
     def __init__(self, settings, backend, *, clock=time.time):
         self.settings, self.backend, self.clock = settings, backend, clock
+        # Validated once; a malformed allowlist refuses construction.
+        self.account_ids = settings.account_ids
 
     def _sign(self, purpose, body):
         return _encode(hmac.new(self.settings.signing_key.encode('ascii'),
@@ -130,9 +147,12 @@ class BrowserAuth:
             session = self.backend.sign_in(email.strip(), password)
             token, owner = session['access_token'], session['owner_id']
             expires = session['expires_at']
-            if (owner != self.settings.owner_id or not isinstance(token, str)
+            if (owner not in self.account_ids or not isinstance(token, str)
                     or not 1 <= len(token) <= 2400 or type(expires) not in (int, float)
                     or not math.isfinite(expires) or expires <= self.clock()):
+                raise ValueError()
+            account_of = getattr(self.backend, 'token_account', None)
+            if account_of is not None and account_of(token) != owner:
                 raise ValueError()
             expiry = int(min(expires, self.clock() + self.settings.session_ttl))
             sid = secrets.token_urlsafe(32)
@@ -148,7 +168,7 @@ class BrowserAuth:
         payload = self._open('session', cookie)
         if (set(payload) != {'v', 'sid', 'token', 'owner', 'expires'}
                 or type(payload['v']) is not int or payload['v'] != 1
-                or payload['owner'] != self.settings.owner_id
+                or payload['owner'] not in self.account_ids
                 or type(payload['expires']) is not int
                 or not self.clock() < payload['expires'] <= self.clock() + 3600
                 or not isinstance(payload['sid'], str)
@@ -156,6 +176,14 @@ class BrowserAuth:
                 or not isinstance(payload['token'], str) or not 1 <= len(payload['token']) <= 2400):
             raise BrowserAuthError('Sign-in required')
         session_hash = hashlib.sha256(payload['sid'].encode('ascii')).hexdigest()
+        account_of = getattr(self.backend, 'token_account', None)
+        if account_of is not None:
+            try:
+                bound = account_of(payload['token'])
+            except Exception:
+                raise BrowserAuthError('Sign-in required') from None
+            if bound != payload['owner']:
+                raise BrowserAuthError('Sign-in required')
         try:
             active = self.backend.session_valid(payload['token'], session_hash)
         except Exception:
@@ -220,7 +248,7 @@ def _login_page(service, *, error='', status=200):
             'button{font:inherit;background:#176657;color:white;border:0;border-radius:7px;'
             'padding:12px 20px;cursor:pointer;width:100%}[role=alert]{padding:12px;background:#fff3d5}'
             '</style><body><main><h1>Sign in to SEO QA</h1>'
-            '<p>Use your existing SEO QA owner account.</p>'
+            '<p>Use your existing SEO QA account.</p>'
             + ('<p role="alert">' + html.escape(error) + '</p>' if error else '')
             + '<form method="post" action="/login">'
             '<input type="hidden" name="csrf_token" value="' + html.escape(challenge, quote=True) + '">'

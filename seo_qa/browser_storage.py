@@ -31,6 +31,7 @@ class BrowserStorageConfig:
     publishable_key: str = field(repr=False)
     owner_id: str
     scoped_workflow_enabled: bool = False
+    member_ids: tuple = ()
 
     def __post_init__(self):
         if type(self.scoped_workflow_enabled) is not bool:
@@ -46,6 +47,13 @@ class BrowserStorageConfig:
             raise ValueError('Explicit application owner identity is required') from None
         if owner != self.owner_id:
             raise ValueError('Owner identity must use canonical UUID format')
+        from .accounts import AccountPolicy
+        AccountPolicy(self.owner_id, self.member_ids)  # fails closed on bad lists
+
+    @property
+    def policy(self):
+        from .accounts import AccountPolicy
+        return AccountPolicy(self.owner_id, self.member_ids)
 
     @classmethod
     def from_environ(cls, environ=None):
@@ -57,7 +65,10 @@ class BrowserStorageConfig:
         if any(not isinstance(values.get(key), str) or not values[key] for key in required):
             raise ValueError('Browser storage configuration is incomplete')
         from .scoped_workflow import flag
-        return cls(*(values[key] for key in required), scoped_workflow_enabled=flag(values))
+        from .accounts import AccountPolicy
+        policy = AccountPolicy.from_environ(values)
+        return cls(*(values[key] for key in required), scoped_workflow_enabled=flag(values),
+                   member_ids=policy.member_ids)
 
 
 def _hash(value):
@@ -112,10 +123,18 @@ class BrowserStorage:
                                      if key.startswith('SEO_KNOWLEDGE_')}
         return instance
 
+    def token_account(self, token):
+        """Allowlisted account named by a token; Auth confirms it in _api()."""
+        from .accounts import AccountPolicyError, token_subject
+        try:
+            return self.config.policy.require(token_subject(token))
+        except AccountPolicyError:
+            raise AccessDenied('Account is not permitted') from None
+
     def _adapter(self, token):
         return SupabaseAdapter(url=self.config.url, project_ref=self.config.project_ref,
                                publishable_key=self.config.publishable_key,
-                               user_jwt=token, owner_id=self.config.owner_id,
+                               user_jwt=token, owner_id=self.token_account(token),
                                enabled=True, client=self._client)
 
     @contextmanager
@@ -144,15 +163,17 @@ class BrowserStorage:
                     raise AccessDenied('Sign-in was not accepted')
                 value = response.json()
                 token = value.get('access_token') if isinstance(value, dict) else None
+                account = value['user'].get('id') if isinstance(value, dict) and isinstance(value.get('user'), dict) else None
                 if (not isinstance(token, str) or not token
-                        or not isinstance(value.get('user'), dict)
-                        or value['user'].get('id') != self.config.owner_id):
+                        or not self.config.policy.allows(account)):
                     raise AccessDenied('Sign-in was not accepted')
                 # JWT parsing alone is never authentication: the real Auth user
-                # endpoint must confirm this exact owner before issuing a cookie.
-                with self._api(token):
+                # endpoint must confirm this exact account before issuing a cookie.
+                with self._api(token) as api:
+                    if api.owner_id != account:
+                        raise AccessDenied('Sign-in was not accepted')
                     expires = _token_expiry(token)
-                return {'access_token': token, 'owner_id': self.config.owner_id,
+                return {'access_token': token, 'owner_id': account,
                         'expires_at': expires}
             except (httpx.RequestError, ValueError, TypeError, KeyError):
                 raise AccessDenied('Sign-in was not accepted') from None
@@ -163,7 +184,7 @@ class BrowserStorage:
     def _read(self, api, session_hash):
         response = api._request('GET', '/rest/v1/seo_browser_sessions', params={
             'session_hash': 'eq.' + session_hash,
-            'owner_id': 'eq.' + self.config.owner_id,
+            'owner_id': 'eq.' + api.owner_id,
             'select': 'session_hash,owner_id,expires_at,revoked_at', 'limit': '2'})
         rows = api._json(response)
         if not isinstance(rows, list) or len(rows) > 1:
@@ -172,11 +193,11 @@ class BrowserStorage:
             return None
         row = rows[0]
         if (not isinstance(row, dict) or row.get('session_hash') != session_hash
-                or row.get('owner_id') != self.config.owner_id):
+                or row.get('owner_id') != api.owner_id):
             raise SupabaseError('Browser session identity mismatch')
         expires = _epoch(row.get('expires_at'))
         revoked = _epoch(row['revoked_at']) if row.get('revoked_at') is not None else None
-        return {'session_hash': session_hash, 'owner_id': self.config.owner_id,
+        return {'session_hash': session_hash, 'owner_id': api.owner_id,
                 'expires_at': expires, 'revoked_at': revoked}
 
     def session_create(self, access_token, session_id_hash, expires_at):
@@ -185,9 +206,9 @@ class BrowserStorage:
         now = self.clock()
         if not now < expires_at <= min(now + 3600, _token_expiry(access_token)):
             raise ValueError('Browser session must expire within the token lifetime and one hour')
-        body = {'session_hash': session_id_hash, 'owner_id': self.config.owner_id,
-                'expires_at': _iso(expires_at)}
         with self._api(access_token) as api:
+            body = {'session_hash': session_id_hash, 'owner_id': api.owner_id,
+                    'expires_at': _iso(expires_at)}
             try:
                 api._request('POST', '/rest/v1/seo_browser_sessions',
                              operation={'kind': 'browser_session_create',
@@ -219,7 +240,7 @@ class BrowserStorage:
                                         'session_hash': session_id_hash},
                              json={'revoked_at': _iso(self.clock())},
                              params={'session_hash': 'eq.' + session_id_hash,
-                                     'owner_id': 'eq.' + self.config.owner_id})
+                                     'owner_id': 'eq.' + api.owner_id})
             except SupabaseError:
                 # Concurrent sign-out can hit the immutable-tombstone guard.
                 # A readback, never an automatic second PATCH, decides success.
@@ -230,7 +251,8 @@ class BrowserStorage:
 
     def create_store(self, access_token):
         api = self._adapter(access_token)
-        root = str(uuid5(NAMESPACE_URL, 'seo-qa-tool:' + self.config.project_ref + ':' + self.config.owner_id))
+        # Each account has its own root; members never resolve the owner's root.
+        root = str(uuid5(NAMESPACE_URL, 'seo-qa-tool:' + self.config.project_ref + ':' + api.owner_id))
         try:
             from .knowledge.config import compose_hosted
             return compose_hosted(HostedStore(api, root), scoped_enabled=self.config.scoped_workflow_enabled,
