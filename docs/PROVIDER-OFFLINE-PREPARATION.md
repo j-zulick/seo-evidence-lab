@@ -24,3 +24,20 @@ Keep the original JSON privately beside each result and reproduce normalization 
 5. Release source only after the integrated commit passes verification. Keep application hosting paused until its separate resume conditions are met. No credentials, service accounts or provider budgets are needed to run this offline candidate.
 
 External gates: actual authorized provider exports, independent evaluation labels/judgments and connected tracing evidence. These gates do not block exercising the synthetic local contract. No production or client-readiness acceptance is claimed.
+
+## Drop-folder intake for real saved exports (prepared, exports pending)
+
+```sh
+.venv/bin/python -m seo_qa.provider_intake init ~/private/provider-drop
+# Save each export under inbox/<gsc|crux|ahrefs-saved-top10>/<name>.json with a
+# <name>.meta.json sidecar: {"exported_at": "...+00:00", "synthetic": false}
+.venv/bin/python -m seo_qa.provider_intake run ~/private/provider-drop
+```
+
+`run` leaves the inbox untouched, normalizes each export twice and requires
+identical results, writes `normalized/<source_hash>.json`, and writes
+`INTAKE-REPORT.json` with accepted files, rejections with reasons, the count of
+real (non-synthetic) exports, and every comparable pair. Real and synthetic
+exports are never compared. Symlinks, files over 20 MB, undeclared provenance,
+timezone-less export times and extra sidecar fields are refused. Keep the drop
+folder private and outside any repository.
