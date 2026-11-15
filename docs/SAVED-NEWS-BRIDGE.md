@@ -55,3 +55,22 @@ Twenty-four new offline cases exercise retries, version retention, invalid/overs
 ```
 
 It imports synthetic data through the form, records an explicitly synthetic triage declaration, downloads JSON, checks desktop/mobile layouts, and actually restarts the process to verify persistence. No live collection or human acceptance is inferred.
+
+## Approved guidance releases (v0.2.1 path)
+
+`seo_qa.guidance_release` turns a reviewed proposal into an immutable, versioned
+guidance release and replays affected audits:
+
+```sh
+.venv/bin/python -m seo_qa.guidance_release approve --db inbox.sqlite --proposal-id <id> --reviewer "<name>" --note "<why>"
+.venv/bin/python -m seo_qa.guidance_release list --db inbox.sqlite
+.venv/bin/python -m seo_qa.guidance_release affected --db inbox.sqlite --release-id <id> --audits audits.json
+```
+
+Approval requires the reviewer's own latest triage decision on that source to be
+`accept_for_review`, and the reviewer must differ from the proposal author.
+Releases are append-only (SQLite triggers refuse update/delete), hash-identified,
+and chained to the previous release; `list` re-verifies the chain. `affected`
+reports which supplied audit findings would change under the released guidance
+and changes no stored audit. Reviewer names are declarations, not authenticated
+identities, and approval does not verify that the source is true.

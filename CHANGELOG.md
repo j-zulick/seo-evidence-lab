@@ -1,3 +1,6 @@
+# v0.2.1 groundwork (local, unreleased)
+- Added approved, immutable, chained guidance releases from reviewed news proposals, plus affected-audit replay. See docs/SAVED-NEWS-BRIDGE.md.
+
 # Local successor changes
 - Added an offline FTS5 passage index and fixed retrieval benchmark.
 - Added local OpenTelemetry spans, injected fetch failure/retry, property tests and portable fixture CI.
