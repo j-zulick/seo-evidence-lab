@@ -45,12 +45,39 @@ Two-account tests cover: listing, detail, run creation, all report formats,
 QA audit views and explanations, CSRF transfer, cookie forgery with a different
 account, unlisted sign-in, and allowlist removal.
 
+## Hosted policy review (Nov 15, from the migrations; project is paused)
+
+The hosted project is paused, so the review used the repository's Supabase
+migrations rather than live catalog queries. Findings:
+
+- Every table policy (`seo_qa_tool`, requirements, versions, runs, observations,
+  reviews, operations, events, imports, fixture destinations, knowledge pins,
+  scoped checkpoints, browser sessions) is `auth.uid() = owner_id`.
+- Every `security definer` workflow function filters on `auth.uid()`.
+- Evidence storage reads/writes are limited to the caller's own `auth.uid()` folder.
+- No fixed owner UUID appears in any policy or function.
+- `supabase/config.toml` sets `enable_signup = false`, so only accounts the owner creates exist.
+- Knowledge bundles are readable by users listed in `seo_knowledge_readers`;
+  add members there only if they should read published knowledge.
+
+Conclusion: the schema already isolates accounts; no policy migration is needed
+for allowlisted members. The live project must still be confirmed to match the
+migrations when it is resumed.
+
+## Onboarding a member
+
+A member has no storage root until one is created. Root creation is explicit
+and owner-run, never automatic at sign-in:
+
+1. Create the member's Auth user in the Supabase dashboard (signups stay off).
+2. Add their user id to `SEO_MEMBER_ACCOUNT_IDS` and redeploy.
+3. With the member's own session token, call `BrowserStorage.provision_root(token)`.
+   RLS only permits a root whose `owner_id` equals the caller.
+
 ## Remaining gates before shared hosting (not done here)
 
-1. **Hosted policy review.** Confirm Supabase RLS on `seo_qa_tool`,
-   `seo_browser_sessions`, run/evidence tables and the evidence bucket keys on
-   `auth.uid() = owner_id` (not a fixed owner UUID), and that a member can
-   create only its own root row. Read-only check, then a reviewed migration if needed.
+1. **Resume and confirm.** When hosting resumes, confirm live policies match the
+   migrations (read-only `pg_policies` query).
 2. **Real second account.** Create a genuine second Auth user and repeat the
    isolation checks against the hosted project.
 3. **Account lifecycle.** Invitation, removal and data-retention decisions for
