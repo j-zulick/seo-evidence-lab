@@ -150,6 +150,25 @@ def test_each_account_gets_its_own_storage_root():
         backend.create_store(jwt(STRANGER))
 
 
+def test_member_root_provisioning_is_explicit_and_self_scoped():
+    calls = []
+    def rest(request):
+        owner = token_subject(request.headers['authorization'][7:])
+        calls.append((request.method, owner))
+        if request.method == 'GET':
+            return httpx.Response(200, json=[])
+        body = json.loads(request.content)
+        assert body['owner_id'] == owner == MEMBER
+        return httpx.Response(201, json=[body | {'created_at': '2026-11-15T00:00:00+00:00'}])
+    backend = storage(auth_handler(None, None, rest))
+    result = backend.provision_root(jwt(MEMBER))
+    assert result['state'] == 'confirmed' and result['row']['id'] == backend.account_root(MEMBER)
+    assert result['row']['id'] != backend.account_root(OWNER)
+    assert ('POST', MEMBER) in calls and all(owner == MEMBER for _, owner in calls)
+    with pytest.raises(AccessDenied):
+        backend.provision_root(jwt(STRANGER))
+
+
 # ---------------------------------------------------------------- full production app
 
 class TwoAccountBackend:

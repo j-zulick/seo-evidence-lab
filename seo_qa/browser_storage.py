@@ -249,10 +249,22 @@ class BrowserStorage:
             if row is not None and row['revoked_at'] is None:
                 raise SupabaseError('Browser session sign-out could not be verified')
 
+    def account_root(self, account_id):
+        return str(uuid5(NAMESPACE_URL, 'seo-qa-tool:' + self.config.project_ref + ':' + account_id))
+
+    def provision_root(self, access_token):
+        """Explicit one-time onboarding: create the signed-in account's own root.
+
+        Never called implicitly at sign-in. RLS only allows inserting a root
+        whose owner_id equals the caller, so this cannot touch another account.
+        """
+        with self._api(access_token) as api:
+            return api.create_root(self.account_root(api.owner_id))
+
     def create_store(self, access_token):
         api = self._adapter(access_token)
         # Each account has its own root; members never resolve the owner's root.
-        root = str(uuid5(NAMESPACE_URL, 'seo-qa-tool:' + self.config.project_ref + ':' + api.owner_id))
+        root = self.account_root(api.owner_id)
         try:
             from .knowledge.config import compose_hosted
             return compose_hosted(HostedStore(api, root), scoped_enabled=self.config.scoped_workflow_enabled,
