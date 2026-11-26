@@ -1,55 +1,31 @@
 # SEO Evidence Lab
 
-This cumulative offline candidate includes v0.3 replay criteria, lexical retrieval expansion,
-and a selected-dataset read-only MCP server. See [candidate instructions and
-verified limits](docs/V03-PREPARATION.md). The browser walkthrough below preserves
-the existing v0.1 baseline; publication and hosting are separate steps.
+**Why did this SEO finding change?** In the sample audit, adding a question heading makes the article pass a heading check. Replaying the original article with updated guidance leaves the finding unchanged. Both the edited page and a comparison page gained synthetic search visibility, so the replay explains the audit result while the search impact remains uncertain.
 
-[Latest release: v0.1.0](https://github.com/j-zulick/seo-evidence-lab/releases/tag/v0.1.0) · [Verified public CI](https://github.com/j-zulick/seo-evidence-lab/actions/runs/42966824812)
-Explain why an SEO finding changed, with the original passage, edited content, versioned inputs, and replay results open to inspection.
+[Follow the five-minute walkthrough](https://github.com/j-zulick/seo-evidence-lab/blob/v0.1.0/docs/DEMO-WALKTHROUGH.md) · [Inspect the replay data](https://github.com/j-zulick/seo-evidence-lab/blob/v0.1.0/examples/timeline.json) · [Download v0.1.0](https://github.com/j-zulick/seo-evidence-lab/releases/tag/v0.1.0)
 
-![Evidence lab overview](examples/overview.png)
+![Side-by-side passages and heading finding in the released example](https://raw.githubusercontent.com/j-zulick/seo-evidence-lab/v0.1.0/examples/timeline.png)
 
-This local Python application combines an SEO audit workspace with an inspectable synthetic change-analysis demo. The **v0.2 development branch** adds a saved news-agent export inbox and source-bound guidance-impact proposals. The stable v0.1.0 release remains unchanged. [Reproduce the saved-news bridge](docs/SAVED-NEWS-BRIDGE.md). Live collection and approved-guidance activation remain future work.
+## Run the released walkthrough
 
-## What makes this project distinctive
-
-The example asks whether a finding changed because the article, guidance, scoring logic, or evidence availability changed. It pins those four inputs and replays their combinations. This explains a deterministic finding; it does not establish that a page edit caused a search-performance improvement.
-
-The evaluation screen exposes deliberately incorrect saved judgments and a retrieval paraphrase that misses its expected passage. The saved-news bridge retains source versions and prepares explicitly unapproved impact proposals. The next acceptance milestone is genuine source corroboration followed by reviewed guidance publication; no source excerpt or software proposal activates a rule automatically.
-
-[Five-minute walkthrough](docs/DEMO-WALKTHROUGH.md) · [Architecture](docs/ARCHITECTURE.md) · [Evaluation results](docs/EVALUATION.md) · [Engineering case study](docs/CASE-STUDY.md) · [Roadmap](docs/ROADMAP.md) · [Portfolio review and two-minute demo](docs/PORTFOLIO.md)
-
-## Try it locally
-Use Python 3.12 with SQLite FTS5. Run the one-command walkthrough:
+Use Git, Python 3.12 and SQLite with FTS5. In a new directory, run:
 
 ```sh
+git clone --branch v0.1.0 --depth 1 https://github.com/j-zulick/seo-evidence-lab.git
+cd seo-evidence-lab
 ./walkthrough.sh
-```
-
-It installs the pinned local environment and writes reports to `demo-output/`. Choose the interpreter with `SEO_QA_BOOTSTRAP_PYTHON` if `python3.12` has a different name.
-
-Then start the app:
-
-```sh
 ./run-local.command
 ```
 
-Open the printed address and choose **Evidence lab**. The main journey starts at `/qa/lab`.
+The walkthrough installs the pinned environment and writes reports to `demo-output/`. If Python 3.12 has a different executable name, set `SEO_QA_BOOTSTRAP_PYTHON` to its path. Open the address printed by the launcher and choose **Evidence lab** at `/qa/lab`. **Change analysis** lets you compare the passages and vary four inputs individually: article, guidance, scoring logic and available evidence. **Evaluation** shows the six saved cases and the paraphrase that missed its expected passage.
 
-- **Change analysis** puts the original passage, edit, finding and counterfactual trials together.
-- **Evaluation** exposes the six-case results and the failed retrieval paraphrase.
-- **News leads** separates an emerging report from its primary-source review.
-- **Article walkthrough** uses the included publication-review article for a small-site owner. The editorial template remains blank.
+[Watch the recording](https://github.com/j-zulick/seo-evidence-lab/blob/v0.1.0/examples/walkthrough.webm) · [See the evaluation results](https://github.com/j-zulick/seo-evidence-lab/blob/v0.1.0/docs/EVALUATION.md) · [Review the release checks](https://github.com/j-zulick/seo-evidence-lab/actions/runs/42966824812)
 
-[Recorded walkthrough](examples/walkthrough.webm) · [Evaluation screen](examples/evaluation.png) · [Current experiment report](examples/experiment-comparison.json) · [Retrieval benchmark](examples/retrieval.json)
+## Current development
 
-## Inspect a claim
-The edited synthetic page acquires a question heading. Replacing only the article makes the heading criterion pass. Updating only the guidance preserves the original finding. Both the edited page and comparison page gain synthetic top-ten keywords, so the edit’s search benefit remains uncertain.
+The default branch extends the released audit workspace with a saved news-agent inbox, source-bound proposals for guidance changes, expanded replay criteria, lexical retrieval and a read-only MCP server for a selected dataset. Reviewers can inspect proposed changes before activating guidance. Live collection and guidance publication await separate acceptance.
 
-![Passage and finding comparison](examples/timeline.png)
-
-The fixture replay covers a heading criterion. The broader five-scope audit and the separate Bot-worthiness assessment are available through the audit workspace. Old audits and edited-content assessments retain distinct identities.
+[Candidate instructions and verified limits](docs/V03-PREPARATION.md) · [Reproduce the saved-news bridge](docs/SAVED-NEWS-BRIDGE.md) · [Engineering case study](docs/CASE-STUDY.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md)
 
 ## Technology and implemented scope
 | Area | Local implementation |
