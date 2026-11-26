@@ -74,9 +74,9 @@ flowchart LR
 
 [News/research integration design](NEWS-INTELLIGENCE.md) · [Capabilities and limits](CAPABILITIES.md) · [Release notes](RELEASE-NOTES.md) · [Contributing](CONTRIBUTING.md)
 
-## Origins and publication
-Sweepr’s documentation-drift workflow supplied the originating concept; Botworthy Index later informed the separate local quotability adaptation. [Attribution](ATTRIBUTION.txt).
+## Origins and scope
+Sweepr's documentation-drift workflow supplied the originating concept; Botworthy Index later informed the separate quotability adaptation. See [attribution](ATTRIBUTION.txt).
 
-The owner has signed off on the local MVP and six advisory source decisions. Two independent editorial reviews and empirical walkthrough observations have not been supplied; owner signoff does not create those results. The public destination is `j-zulick/seo-evidence-lab`. Project-owned code is licensed under [MIT](LICENSE), adopted with the owner’s publication approval. See [license scope](LICENSE-DECISION.txt), [provenance](docs/PROVENANCE.md), and [dependency notices](THIRD-PARTY-NOTICES.md).
+Everything runs locally from saved files: no recurring collection, live rules, or live Ahrefs, model or evaluation calls. The evaluation's simulated judgments test the harness, not model quality, and independent editorial reviews are still pending. See [security and operating scope](SECURITY.md) and [capabilities and limits](CAPABILITIES.md).
 
-A separately authorized protected static preview demonstrates saved fixture evidence; it does not host the dynamic local app. Original production remains paused. Recurring collection and live rules are disabled, with zero live Ahrefs, model or evaluation calls in the demonstrated workflow. Public source publication does not require resuming application hosting. See [security and operating scope](SECURITY.md).
+Project-owned code is [MIT](LICENSE) licensed. See [license scope](LICENSE-DECISION.txt), [provenance](docs/PROVENANCE.md) and [dependency notices](THIRD-PARTY-NOTICES.md).
