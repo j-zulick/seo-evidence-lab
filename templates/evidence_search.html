@@ -2,7 +2,11 @@
 {% block title %}Evidence search · SEO Evidence Lab{% endblock %}
 {% block content %}
 <header class="page-head"><p class="eyebrow">Investigate · frozen synthetic corpus</p><h1>Find the passage.<br>Keep its provenance.</h1><p class="intro">Search the saved examples by their words. Try “noindex,” “INP,” or “indexing archive” to inspect a conflict.</p></header>
-<form class="search" method="get"><div><label for="q">Search source passages</label><input name="q" id="q" maxlength="512" value="{{query}}" placeholder="e.g. noindex"></div><button>Search</button></form>
+<form class="search" method="get"><div><label for="q">Search source passages</label><input name="q" id="q" maxlength="512" value="{{query}}" placeholder="e.g. noindex"></div>
+<fieldset class="facets"><legend>Filter by source</legend>{% for f in facets.facets.sources %}<label><input type="checkbox" name="source" value="{{f.value}}"{% if f.selected %} checked{% endif %}> {{f.value}} <span class="quiet">({{f.count}})</span></label>{% endfor %}</fieldset>
+<fieldset class="facets"><legend>Filter by version</legend>{% for f in facets.facets.versions %}<label><input type="checkbox" name="version" value="{{f.value}}"{% if f.selected %} checked{% endif %}> version {{f.value}} <span class="quiet">({{f.count}})</span></label>{% endfor %}</fieldset>
+<button>Search</button></form>
+{% if filtered %}<p class="quiet">{{facets.total}} matching passage{{'' if facets.total == 1 else 's'}} in the indexed corpus. A lexical match does not show that a claim is true.</p>{% endif %}
 {% for hit in hits %}<article class="card lead"><span class="label">{{hit.source}} · version {{hit.version}}</span><h2>{{hit.id}}</h2><blockquote>{{hit.passage}}</blockquote><p class="hash">{{hit.sha256}}</p></article>
-{% else %}{% if query %}<div class="card"><h2>No matching evidence.</h2><p class="quiet">Try a term present in the source. The evaluation page shows a paraphrase this lexical search misses.</p><div class="actions"><a href="/qa/evaluations">Inspect retrieval evaluation →</a></div></div>{% endif %}{% endfor %}
+{% else %}{% if query or filtered %}<div class="card"><h2>No matching evidence.</h2><p class="quiet">Try a term present in the source. The evaluation page shows a paraphrase this lexical search misses.</p><div class="actions"><a href="/qa/evaluations">Inspect retrieval evaluation →</a></div></div>{% endif %}{% endfor %}
 {% endblock %}
