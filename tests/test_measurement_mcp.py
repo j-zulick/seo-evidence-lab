@@ -40,7 +40,7 @@ def test_stdio_roundtrip():
             async with ClientSession(reader,writer) as session:
                 await session.initialize()
                 tools=(await session.list_tools()).tools
-                assert len(tools)==3 and all(tool.annotations.readOnlyHint for tool in tools)
+                assert len(tools)==4 and all(tool.annotations.readOnlyHint for tool in tools)
                 async def call(name,args):
                     res=await session.call_tool(name,args)
                     assert not res.isError
@@ -49,4 +49,8 @@ def test_stdio_roundtrip():
                 assert (await call('get_finding_evidence',{'audit_id':ids[0]}))['finding']=='miss'
                 assert (await call('compare_audit_versions',{'before_id':ids[0],'after_id':ids[1]}))['status']=='explained'
                 assert (await session.call_tool('get_finding_evidence',{'audit_id':'unknown'})).isError
+                found=await call('search_evidence',{'query':'noindex'})
+                assert found['results'][0]['id']=='robots' and found['coverage']=='indexed_corpus_only'
+                assert (await call('search_evidence',{'query':'noindex','sources':['no-such-source']}))['total']==0
+                assert (await session.call_tool('search_evidence',{'query':'x'*600})).isError
     asyncio.run(exercise())

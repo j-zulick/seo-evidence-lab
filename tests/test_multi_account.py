@@ -320,7 +320,7 @@ LOCAL_ONLY = {  # must refuse in any production/browser composition
     '/qa/saved-diagnostics', '/qa/news-imports', '/qa/news-imports/decision',
     '/qa/news-imports/report.json', '/qa/lab', '/qa/walkthrough', '/qa/walkthrough/{kind}.json',
     '/qa/competitors', '/qa/evaluations', '/qa/evaluations/report.json', '/qa/community-news',
-    '/qa/evidence-search', '/qa/competitors/comparison.json', '/qa/competitors/evidence/{audit_id}',
+    '/qa/evidence-search', '/qa/evidence-search.json', '/qa/competitors/comparison.json', '/qa/competitors/evidence/{audit_id}',
     '/qa/source-inbox', '/qa/community-retained', '/qa/community-retained/import',
     '/qa/community-retained/remove',
 }

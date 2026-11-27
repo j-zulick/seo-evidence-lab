@@ -106,3 +106,14 @@ def test_evidence_search_page_filters_by_facets(tmp_path):
     browse = client.get('/qa/evidence-search', params={'source': 'fixture:publisher-a'})
     assert 'A noindex directive requests exclusion' in browse.text
     assert client.get('/qa/evidence-search', params={'offset': '-1'}).status_code in (400, 422)
+
+
+def test_evidence_search_json_endpoint(tmp_path):
+    from fastapi.testclient import TestClient
+    from seo_qa.store import Store
+    from seo_qa.web import create_app
+    client = TestClient(create_app(Store(tmp_path / 'json.sqlite')))
+    body = client.get('/qa/evidence-search.json', params={'q': 'noindex'}).json()
+    assert body['results'][0]['id'] == 'robots' and body['facets']['sources']
+    assert client.get('/qa/evidence-search.json', params={'q': 'x' * 600}).status_code == 400
+    assert client.get('/qa/evidence-search.json', params={'limit': '1000'}).status_code == 400

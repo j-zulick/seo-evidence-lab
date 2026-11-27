@@ -34,7 +34,7 @@ The default branch extends the released audit workspace with a saved news-agent 
 | Evidence | SQLite attempt/version storage, content hashes, immutable replay inputs |
 | Ingestion | Saved Firecrawl-shaped captures, Search Console and CrUX JSON imports, bounded synthetic subreddit observations |
 | Search | SQLite FTS5, passage/source/version hashes, frozen six-query benchmark |
-| Tools | Actual MCP stdio server with three read-only fixture tools |
+| Tools | Actual MCP stdio server with four read-only fixture tools, including faceted evidence search |
 | Evaluation | Three deterministic cases plus three simulated Jev-style judgments, Langfuse dataset-item exports |
 | Observability | OpenTelemetry in-memory spans for comparison, import, failure, retry, diff and replay |
 | Verification | pytest, Hypothesis, Playwright/Chrome, browser traces, real restart and export checks |
