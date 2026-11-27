@@ -17,7 +17,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Select version and guard
@@ -48,7 +48,7 @@ jobs:
       - name: Check out released commit
         if: steps.pick.outputs.tag != ''
         run: git checkout -q "${{ steps.pick.outputs.sha }}"
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         if: steps.pick.outputs.tag != ''
         with:
           python-version: '3.12'

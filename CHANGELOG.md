@@ -1,3 +1,17 @@
+# v0.2.2
+
+### Added
+- **Faceted evidence retrieval (offline):** `seo_qa.evidence_search.faceted_search` filters passages by source and content version (OR within a facet, AND across facets). It reports facet counts over every match before pagination, with stable bounded paging and unchanged source/version/passage hashes. An empty query browses the indexed corpus. The existing `search()` and its six-query benchmark (5/6) are unchanged. See docs/OFFLINE-FACETS.md. Originally PR #1, replayed onto current main.
+
+### Fixed
+- CI and release workflows move to `actions/checkout@v5` and `actions/setup-python@v6`, clearing the Node.js 20 deprecation warning.
+
+### Verification
+- Local: 564 tests + 38 subtests passed (Linux x86_64, Python 3.12).
+
+### Boundaries
+- Counts describe indexed passages; a lexical match does not prove a claim. No UI or hosted integration for facets yet.
+
 # v0.2.1
 
 Groundwork release: the tooling to finish v0.2 acceptance and to isolate accounts. All of it runs offline from saved files.
