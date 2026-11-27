@@ -1,3 +1,15 @@
+# v0.2.4
+
+### Added
+- **`search_evidence` MCP tool:** the read-only stdio server (`python -m seo_qa.timeline_mcp`) now exposes faceted search over the frozen synthetic corpus (query, sources, versions, limit, offset), with facet counts, provenance hashes and coverage limits. Four tools in all; every one is annotated read-only and closed-world.
+- **`/qa/evidence-search.json`:** the same faceted results as JSON from the local app. Local-only: the route inventory classifies it, and it is refused in production compositions.
+
+### Verification
+- Local: full suite and fixture CI pass, including a stdio MCP round trip and the route inventory.
+
+### Boundaries
+- Lexical matches over the frozen synthetic corpus only; a match does not prove a claim. No live search or provider calls.
+
 # v0.2.3
 
 ### Added

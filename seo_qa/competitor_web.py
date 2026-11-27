@@ -94,6 +94,21 @@ def install_routes(app, env):
             query=q, hits=facets['results'] if filtered else hits, facets=facets,
             filtered=filtered, active='search')
 
+    @app.get('/qa/evidence-search.json')
+    def evidence_search_json(q: str = '', source: list[str] = Query(default=[]),
+                             version: list[str] = Query(default=[]), limit: int = 10, offset: int = 0):
+        if not local_available(app):
+            raise HTTPException(404)
+        db = index(load())
+        try:
+            try:
+                return faceted_search(db, q, sources=source or None, versions=version or None,
+                                      limit=limit, offset=offset)
+            except ValueError as error:
+                raise HTTPException(400, str(error)) from None
+        finally:
+            db.close()
+
     @app.get('/qa/competitors/comparison.json')
     def comparison():
         return snapshot()
