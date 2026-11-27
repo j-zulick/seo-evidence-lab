@@ -1,7 +1,7 @@
 """Offline provenance facet acceptance; runnable without third-party packages."""
 import unittest
 from seo_qa.competitor import digest
-from seo_qa.evidence_search import benchmark, faceted_search, index, search
+from seo_qa.evidence_search import benchmark, faceted_search, index, load, search
 
 
 class EvidenceFacetTests(unittest.TestCase):
@@ -85,3 +85,24 @@ class EvidenceFacetTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+def test_evidence_search_page_filters_by_facets(tmp_path):
+    from fastapi.testclient import TestClient
+    from seo_qa.store import Store
+    from seo_qa.web import create_app
+    client = TestClient(create_app(Store(tmp_path / 'ui.sqlite')))
+    page = client.get('/qa/evidence-search', params={'q': 'noindex'})
+    assert page.status_code == 200 and 'Filter by source' in page.text and 'fixture:publisher-a' in page.text
+    db = index(load())
+    try:
+        sources = [f['value'] for f in faceted_search(db, '')['facets']['sources']]
+    finally:
+        db.close()
+    other = next(s for s in sources if s != 'fixture:publisher-a')
+    filtered = client.get('/qa/evidence-search', params={'q': 'noindex', 'source': other})
+    assert filtered.status_code == 200 and 'matching passage' in filtered.text
+    assert 'A noindex directive requests exclusion' not in filtered.text
+    browse = client.get('/qa/evidence-search', params={'source': 'fixture:publisher-a'})
+    assert 'A noindex directive requests exclusion' in browse.text
+    assert client.get('/qa/evidence-search', params={'offset': '-1'}).status_code in (400, 422)

@@ -1,9 +1,9 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Query
 from fastapi.responses import HTMLResponse, JSONResponse
 from .botworthiness.local_web import local_available
 from .competitor import demo, ROOT
 from .measurement import fixture_view
-from .evidence_search import index, load, search, benchmark
+from .evidence_search import index, load, search, benchmark, faceted_search
 from .timeline_eval import evaluate
 
 
@@ -73,7 +73,8 @@ def install_routes(app, env):
         return env.get_template('community_news.html').render(data=fixture(), active='news')
 
     @app.get('/qa/evidence-search', response_class=HTMLResponse)
-    def evidence_search(q: str = ''):
+    def evidence_search(q: str = '', source: list[str] = Query(default=[]),
+                        version: list[str] = Query(default=[]), offset: int = 0):
         if not local_available(app):
             raise HTTPException(404)
         if len(q) > 512:
@@ -81,9 +82,17 @@ def install_routes(app, env):
         db = index(load())
         try:
             hits = search(db, q)
+            try:
+                facets = faceted_search(db, q, sources=source or None, versions=version or None,
+                                        limit=10, offset=offset)
+            except ValueError as error:
+                raise HTTPException(400, str(error)) from None
         finally:
             db.close()
-        return env.get_template('evidence_search.html').render(query=q, hits=hits, active='search')
+        filtered = bool(source or version or offset)
+        return env.get_template('evidence_search.html').render(
+            query=q, hits=facets['results'] if filtered else hits, facets=facets,
+            filtered=filtered, active='search')
 
     @app.get('/qa/competitors/comparison.json')
     def comparison():

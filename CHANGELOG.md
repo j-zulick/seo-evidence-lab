@@ -1,3 +1,18 @@
+# v0.2.3
+
+### Added
+- **Facet filters on the evidence-search page:** `/qa/evidence-search` shows source and version checkboxes with match counts, using `faceted_search`. A filter with an empty query browses the corpus. Unfiltered search is unchanged, and so is the six-query benchmark.
+
+### Changed
+- CI and release workflows pin `runs-on: ubuntu-24.04` ahead of the `ubuntu-latest` move to Ubuntu 26.
+- Release notes now link CHANGELOG and docs at the release tag rather than `main`.
+
+### Verification
+- Local: full suite and fixture CI pass; the search page was checked at 1280px and 390px with no horizontal overflow.
+
+### Boundaries
+- A lexical match is not evidence that a claim is true. The page covers the frozen synthetic corpus only.
+
 # v0.2.2
 
 ### Added
