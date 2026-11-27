@@ -72,7 +72,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "$TAG" "$SHA" -m "SEO Evidence Lab $TAG"
           git push origin "refs/tags/$TAG"
-          gh release create "$TAG" --verify-tag --title "SEO Evidence Lab $TAG" --notes-file notes.md "$ZIP" SHA256SUMS
+          gh release create "$TAG" --verify-tag --title "$TAG" --notes-file notes.md "$ZIP" SHA256SUMS
           sleep 5
           curl -fsSL -o /tmp/check.zip "${{ github.server_url }}/${{ github.repository }}/releases/download/$TAG/$ZIP"
           echo "$(cut -d' ' -f1 SHA256SUMS)  /tmp/check.zip" | sha256sum -c -
